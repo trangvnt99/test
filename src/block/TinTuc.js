@@ -10,7 +10,7 @@ class TinTuc extends React.Component {
                     <div className="bg-slate-500 col-span-5 md:col-span-6 h-0.5 mt-auto mb-auto w-11/12"></div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4 text-center items-center pr-20 pl-20 m-3 pb-2">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4 text-center items-center pr-20 pl-20 m-3 pb-12">
                     <div className="hover:text-gray-800 w-10/12 mr-auto ml-auto">
                         <a href="https://ditagis.com/do-thi-thong-minh/" target="_blank" rel="noreferrer">
                             <div

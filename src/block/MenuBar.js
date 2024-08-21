@@ -21,7 +21,7 @@ class MenuBar extends React.Component {
                 {/* <!-- MENU --> */}
                 <div className="bg-blue-200 overflow-hidden topnav text-black h-full center" id="myTopnav">
 
-                    <a href="/" className="h-full float-left m-auto block text-center p-0 no-underline hover:bg-gray-500" ><img src={logo} alt="logo" className="h-16 pt-3 pb-2 pl-4 pr-4 w-auto float-left block" /></a>
+                    <a href="/" className="h-full float-left m-auto block text-center p-0 no-underline" ><img src={logo} alt="logo" className="h-16 pt-3 pb-2 pl-4 pr-4 w-auto float-left block" /></a>
 
                     <a href="/" className="float-left m-auto block text-center pt-4 pb-5 pl-4 pr-4 no-underline text-xl hover:bg-gray-500 hover:text-white" id="mainpage">TRANG CHỦ</a>
 
