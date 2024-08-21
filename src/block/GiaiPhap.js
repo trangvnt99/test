@@ -9,24 +9,24 @@ class GiaiPhap extends React.Component {
                 {/* <!-- GIẢI PHÁP --> */}
 
                 <div>
-                    <h3 className=" text-center text-3xl md:text-4xl font-bold bg-blue-900 text-white p-6">
+                    <h3 className="text-center text-3xl md:text-4xl font-bold bg-blue-900 text-white p-6">
                         GIẢI PHÁP CỦA HỆ THỐNG GIS
                     </h3>
                 </div>
-                <div className="h-full lg:h-96 grid grid-cols-3 gap-3">
+                <div className="h-full lg:h-96 grid grid-cols-1 md:grid-cols-3">
                     <div className="relative bg-blend-darken pb-0">
-                        <img src={nhanuoc} alt="Background Image"
+                        <img src={nhanuoc} alt="Background Img"
                             className="absolute inset-0 w-full h-full object-bottom object-cover" />
-                        <div className="relative bg-slate-500 bg-opacity-50 p-5 text-white h-full content-center">
+                        <div className="relative bg-slate-500 bg-opacity-50 p-8 text-white h-full content-center">
                             <h3 className="font-bold content-center text-4xl">
                                 DÀNH CHO NHÀ NƯỚC
                             </h3>
-                            <p className="text-justify text-xl italic">phục vụ cho tất cả các ngành như Xây dựng, Cấp điện, Cấp
+                            <p className="text-justify text-xl italic">Phục vụ cho tất cả các ngành như Xây dựng, Cấp điện, Cấp
                                 nước, Viễn thông, Chiếu sáng, Thoát nước, Quản lý đô thị, Cây xanh, Môi trường...</p>
                         </div>
                     </div>
 
-                    <div className="col-span-2 grid grid-cols-2">
+                    <div className="col-span-2 grid grid-cols-1 m-5 md:grid-cols-2">
                         <div
                             className="bg-blue-200 rounded-xl content-center m-3 p-3 mt-5 max-h-1/3 hover:shadow-2xl transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-blue-100 duration-300">
                             <h5 className="font-bold text-xl">
@@ -54,11 +54,24 @@ class GiaiPhap extends React.Component {
 
                     </div>
                 </div>
+
                 <div className="p-2 bg-blue-900"></div>
-                <div className="h-full lg:h-96 grid grid-cols-3 gap-3 ">
-                    <div className="col-span-2 grid grid-cols-2">
+
+                <div className="h-full lg:h-96 grid grid-cols-1 md:grid-cols-3">
+                    <div className="relative bg-blend-darken pb-0 md:order-last">
+                        <img src={doanhnghiep} alt="Background Img"
+                            className="absolute inset-0 w-full h-full object-bottom object-cover" />
+                        <div className="relative bg-slate-700 bg-opacity-50 p-8 text-white h-full content-center">
+                            <h3 className="font-bold content-center text-4xl">
+                                DÀNH CHO DOANH NGHIỆP
+                            </h3>
+                            <p className="text-justify text-xl italic">Theo dõi vị trí của nhân viên, hàng hóa, kết nối với hệ thống
+                                IOT, cung cấp giải pháp theo dõi mạng lưới, tài sản của doanh nghiệp trên hệ thống bản đồ...</p>
+                        </div>
+                    </div>
+                    <div className="col-span-2 grid grid-cols-1 m-5 md:grid-cols-2 ">
                         <div
-                            className="bg-blue-200 rounded-xl content-center m-3 p-3  mt-5 max-h-1/3 hover:shadow-2xl transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-blue-100 duration-300">
+                            className="bg-blue-200 rounded-xl content-center m-3 p-3 mt-5 max-h-1/3 hover:shadow-2xl transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-blue-100 duration-300">
                             <h5 className="font-bold text-xl">
                                 Quản lý hệ thống cấp nước
                             </h5>
@@ -83,17 +96,7 @@ class GiaiPhap extends React.Component {
                         </div>
 
                     </div>
-                    <div className="relative bg-blend-darken pb-0">
-                        <img src={doanhnghiep} alt="Background Image"
-                            className="absolute inset-0 w-full h-full object-bottom object-cover" />
-                        <div className="relative bg-slate-700 bg-opacity-50 p-5 text-white h-full content-center">
-                            <h3 className="font-bold content-center text-4xl">
-                                DÀNH CHO DOANH NGHIỆP
-                            </h3>
-                            <p className="text-justify text-xl italic">Theo dõi vị trí của nhân viên, hàng hóa, kết nối với hệ thống
-                                IOT, cung cấp giải pháp theo dõi mạng lưới, tài sản của doanh nghiệp trên hệ thống bản đồ...</p>
-                        </div>
-                    </div>
+
                 </div>
                 <div className="p-5 bg-blue-900"></div>
 

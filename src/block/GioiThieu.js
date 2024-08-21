@@ -7,7 +7,7 @@ class GioiThieu extends React.Component {
             <>
                 {/* <!-- GIỚI THIỆU --> */}
                 <div className="relative bg-blend-darken pb-0">
-                    <img src={map3d} alt="Background Image"
+                    <img src={map3d} alt="Background img"
                         className="absolute inset-0 w-full h-full object-cover hover:w-8 hover:h-auto" />
                     <div className="relative bg-blue-900 bg-opacity-50 p-10 text-white">
                         <div className="m-10  text-center">
