@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { Link } from "react-router-dom";
@@ -23,7 +23,7 @@ import GENCO3 from "../image/GENCO3.png";
 import EVNHCMC from "../image/EVNHCMC.png";
 import VNPT from "../image/VNPT.png";
 
-const StatItem = ({ id, finalNumber, label, iconClass, suffix = "" }) => {
+const StatItem = ({ finalNumber, label, iconClass, suffix = "" }) => {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
@@ -44,15 +44,23 @@ const StatItem = ({ id, finalNumber, label, iconClass, suffix = "" }) => {
   }, [finalNumber]);
 
   return (
-    <div className="p-6 text-center" data-aos="zoom-in">
-      <div className="text-5xl lg:text-6xl font-black text-blue-600 mb-2">
+    <div
+      className="p-8 text-center flex flex-col items-center gap-2"
+      data-aos="zoom-in"
+    >
+      {/* 1. Icon: Sử dụng font-light để nét mỏng, text-7xl để đủ to */}
+      <div className="text-white text-7xl md:text-8xl mb-4 font-light opacity-90">
+        <i className={`${iconClass} font-light`}></i>
+      </div>
+
+      {/* 2. Số: Chỉnh font-bold thay vì font-black để nhìn tinh tế hơn */}
+      <div className="text-4xl md:text-5xl font-bold text-white tracking-tight">
         {count.toLocaleString()}
         {suffix}
       </div>
-      <div className="text-slate-400 text-3xl mb-2">
-        <i className={iconClass}></i>
-      </div>
-      <div className="text-slate-700 font-bold uppercase tracking-widest text-sm">
+
+      {/* 3. Nhãn chữ: Thêm tracking-widest cho giống ảnh mẫu */}
+      <div className="text-white font-medium uppercase tracking-[0.2em] text-[10px] md:text-xs mt-2 opacity-80">
         {label}
       </div>
     </div>
@@ -86,71 +94,71 @@ const Home = () => {
     sec: 0,
   });
 
-  const [isChatOpen, setIsChatOpen] = useState(false);
-  const [userInput, setUserInput] = useState(""); // Thêm mới
-  const [chatHistory, setChatHistory] = useState([
-    {
-      type: "bot",
-      text: "Chào bạn! Tôi là tư vấn viên AI của DITAGIS. Tôi có thể hỗ trợ gì cho bạn về giải pháp GIS không?",
-    },
-  ]);
+  //   const [isChatOpen, setIsChatOpen] = useState(false);
+  //   const [userInput, setUserInput] = useState(""); // Thêm mới
+  //   const [chatHistory, setChatHistory] = useState([
+  //     {
+  //       type: "bot",
+  //       text: "Chào bạn! Tôi là tư vấn viên AI của DITAGIS. Tôi có thể hỗ trợ gì cho bạn về giải pháp GIS không?",
+  //     },
+  //   ]);
 
-  const chatEndRef = useRef(null); // Thêm mới để auto-scroll
+  //   const chatEndRef = useRef(null); // Thêm mới để auto-scroll
 
-  const scrollToBottom = () => {
-    chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
+  //   const scrollToBottom = () => {
+  //     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  //   };
 
-  useEffect(() => {
-    scrollToBottom();
-  }, [chatHistory]);
+  //   useEffect(() => {
+  //     scrollToBottom();
+  //   }, [chatHistory]);
 
-  const scenario = {
-    price: {
-      question: "Báo giá phần mềm ArcGIS",
-      answer:
-        "DITAGIS cung cấp các gói bản quyền ArcGIS đa dạng. Bạn vui lòng liên hệ hotline 0985769686 để nhận báo giá chi tiết nhé!",
-    },
-    digitize: {
-      question: "Tư vấn dịch vụ số hóa bản đồ",
-      answer:
-        "Chúng tôi chuyên cung cấp dịch vụ số hóa dữ liệu GIS, xây dựng cơ sở dữ liệu không gian. Bạn cần tư vấn cho dự án cụ thể nào không?",
-    },
-    other: {
-      question: "Tôi có câu hỏi khác",
-      answer:
-        "Vâng, bạn có thể gửi email về mtho1806@gmail.com, chúng tôi sẽ phản hồi ngay!",
-    },
-  };
+  //   const scenario = {
+  //     price: {
+  //       question: "Báo giá phần mềm ArcGIS",
+  //       answer:
+  //         "DITAGIS cung cấp các gói bản quyền ArcGIS đa dạng. Bạn vui lòng liên hệ hotline 0985769686 để nhận báo giá chi tiết nhé!",
+  //     },
+  //     digitize: {
+  //       question: "Tư vấn dịch vụ số hóa bản đồ",
+  //       answer:
+  //         "Chúng tôi chuyên cung cấp dịch vụ số hóa dữ liệu GIS, xây dựng cơ sở dữ liệu không gian. Bạn cần tư vấn cho dự án cụ thể nào không?",
+  //     },
+  //     other: {
+  //       question: "Tôi có câu hỏi khác",
+  //       answer:
+  //         "Vâng, bạn có thể gửi email về mtho1806@gmail.com, chúng tôi sẽ phản hồi ngay!",
+  //     },
+  //   };
 
-  const handleChatOption = (key) => {
-    const selected = scenario[key];
-    setChatHistory((prev) => [
-      ...prev,
-      { type: "user", text: selected.question },
-      { type: "bot", text: selected.answer },
-    ]);
-  };
+  //   const handleChatOption = (key) => {
+  //     const selected = scenario[key];
+  //     setChatHistory((prev) => [
+  //       ...prev,
+  //       { type: "user", text: selected.question },
+  //       { type: "bot", text: selected.answer },
+  //     ]);
+  //   };
 
-  // Hàm gửi tin nhắn tự nhập
-  const handleSendMessage = (e) => {
-    e.preventDefault();
-    if (!userInput.trim()) return;
+  //   // Hàm gửi tin nhắn tự nhập
+  //   const handleSendMessage = (e) => {
+  //     e.preventDefault();
+  //     if (!userInput.trim()) return;
 
-    setChatHistory((prev) => [...prev, { type: "user", text: userInput }]);
-    const currentInput = userInput;
-    setUserInput("");
+  //     setChatHistory((prev) => [...prev, { type: "user", text: userInput }]);
+  //     const currentInput = userInput;
+  //     setUserInput("");
 
-    setTimeout(() => {
-      setChatHistory((prev) => [
-        ...prev,
-        {
-          type: "bot",
-          text: `Cảm ơn bạn đã nhắn tin về: "${currentInput}". Chúng tôi đã ghi nhận và sẽ phản hồi sớm nhất!`,
-        },
-      ]);
-    }, 1000);
-  };
+  //     setTimeout(() => {
+  //       setChatHistory((prev) => [
+  //         ...prev,
+  //         {
+  //           type: "bot",
+  //           text: `Cảm ơn bạn đã nhắn tin về: "${currentInput}". Chúng tôi đã ghi nhận và sẽ phản hồi sớm nhất!`,
+  //         },
+  //       ]);
+  //     }, 1000);
+  //   };
 
   useEffect(() => {
     AOS.init({ duration: 1000, once: true });
@@ -183,7 +191,7 @@ const Home = () => {
 
         <div className="container mx-auto px-6 relative z-10">
           <div className="max-w-6xl" data-aos="fade-up">
-            <p className="text-blue-400 font-bold mb-4 tracking-widest uppercase text-sm md:text-base">
+            <p className="text-blue-400 font-black mb-6 tracking-[0.2em] uppercase text-xl md:text-xl">
               TRUNG TÂM CÔNG NGHỆ THÔNG TIN ĐỊA LÝ DITAGIS
             </p>
 
@@ -233,25 +241,29 @@ const Home = () => {
                 THÔNG BÁO CHIÊU SINH
               </h2>
               <div className="space-y-6 text-lg">
-                <div className="flex gap-4 items-start">
-                  <div className="bg-white/20 p-2 rounded-lg font-bold">
+                {/* Lớp Cơ Bản */}
+                <div className="flex items-center gap-6">
+                  <div className="bg-white/20 w-20 py-2 rounded-lg font-bold text-center shrink-0">
                     BASE
                   </div>
-                  <p>
+                  <p className="leading-tight">
                     <strong>Lớp ArcGIS Căn bản:</strong> T2 - 4 - 6 (18:00 -
                     20:45)
                   </p>
                 </div>
-                <div className="flex gap-4 items-start">
-                  <div className="bg-white/20 p-2 rounded-lg font-bold">
+
+                {/* Lớp Nâng Cao */}
+                <div className="flex items-center gap-6">
+                  <div className="bg-white/20 w-20 py-2 rounded-lg font-bold text-center shrink-0">
                     ADV
                   </div>
-                  <p>
+                  <p className="leading-tight">
                     <strong>Lớp ArcGIS Nâng cao:</strong> T3 - 5 - 7 (18:00 -
                     20:45)
                   </p>
                 </div>
-                <p className="pt-4 italic opacity-80">
+
+                <p className="pt-4 italic opacity-80 border-t border-orange-400/30">
                   * Thời lượng: 10 buổi. Cấp chứng nhận sau 02 tuần hoàn tất
                   khóa học.
                 </p>
@@ -393,19 +405,21 @@ const Home = () => {
         </div>
       </section>
 
-      {/* --- THÀNH TỰU --- */}
-      <section className="py-24 bg-slate-50">
+      {/* --- THÀNH TỰU --- (ĐÃ THAY ĐỔI NỀN) */}
+      <section className="py-3 bg-blue-300">
+        {" "}
+        {/* Thay đổi nền thành màu xanh của DITAGIS */}
         <div className="container mx-auto px-6">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-12">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
             <StatItem
               finalNumber={new Date().getFullYear() - 1994}
               label="Năm phát triển"
-              iconClass="bx bxs-buildings"
+              iconClass="bx bx-buildings"
             />
             <StatItem
               finalNumber={42}
               label="Khách hàng lớn"
-              iconClass="bx bxs-group"
+              iconClass="bx bx-group"
             />
             <StatItem
               finalNumber={78}
@@ -415,7 +429,7 @@ const Home = () => {
             <StatItem
               finalNumber={278}
               label="Đề tài NCKH"
-              iconClass="bx bxs-edit"
+              iconClass="bx bx-edit"
             />
           </div>
         </div>
@@ -469,114 +483,6 @@ const Home = () => {
 
       <TinTuc />
       <Footer1 />
-
-      {/* --- CHATBOT (KHÔNG CẮT BỚT, CHỈ THÊM Ô NHẬP) --- */}
-      <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
-        {isChatOpen && (
-          <div className="bg-white w-[320px] mb-4 rounded-2xl shadow-2xl border border-slate-100 overflow-hidden flex flex-col animate-in fade-in slide-in-from-bottom-4 duration-300">
-            <div className="bg-blue-600 p-4 text-white flex justify-between items-center font-bold shadow-lg">
-              <div className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                <span className="text-sm">DITAGIS Assistant</span>
-              </div>
-              <button
-                onClick={() => setIsChatOpen(false)}
-                className="hover:scale-110 transition-transform text-xl"
-              >
-                ✕
-              </button>
-            </div>
-
-            {/* Khung tin nhắn - Có thêm auto-scroll */}
-            <div className="h-[280px] overflow-y-auto p-4 flex flex-col gap-3 bg-slate-50">
-              {chatHistory.map((chat, i) => (
-                <div
-                  key={i}
-                  className={`max-w-[85%] p-3 rounded-2xl text-sm shadow-sm ${chat.type === "bot" ? "bg-white text-slate-700 self-start border border-slate-100" : "bg-blue-600 text-white self-end"}`}
-                >
-                  {chat.text}
-                </div>
-              ))}
-              <div ref={chatEndRef} />
-            </div>
-
-            {/* Menu câu hỏi gợi ý dạng lướt ngang để dành chỗ cho input */}
-            <div className="p-2 bg-white flex gap-2 overflow-x-auto no-scrollbar border-t border-slate-50">
-              {Object.keys(scenario).map((key) => (
-                <button
-                  key={key}
-                  onClick={() => handleChatOption(key)}
-                  className="whitespace-nowrap text-[10px] bg-slate-50 hover:bg-blue-50 hover:text-blue-600 px-3 py-1 rounded-full border border-slate-200 transition-all font-semibold"
-                >
-                  {scenario[key].question}
-                </button>
-              ))}
-            </div>
-
-            {/* PHẦN MỚI: Ô NHẬP TIN NHẮN */}
-            <form
-              onSubmit={handleSendMessage}
-              className="p-3 bg-white border-t border-slate-100 flex gap-2"
-            >
-              <input
-                type="text"
-                value={userInput}
-                onChange={(e) => setUserInput(e.target.value)}
-                placeholder="Nhập câu hỏi của bạn..."
-                className="flex-1 text-sm bg-slate-100 border-none focus:ring-2 focus:ring-blue-500 rounded-xl px-4 py-2 outline-none"
-              />
-              <button
-                type="submit"
-                className="bg-blue-600 text-white p-2 rounded-xl hover:bg-blue-700 transition-colors"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="18"
-                  height="18"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <line x1="22" y1="2" x2="11" y2="13"></line>
-                  <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-                </svg>
-              </button>
-            </form>
-          </div>
-        )}
-
-        <button
-          onClick={() => setIsChatOpen(!isChatOpen)}
-          className={`w-14 h-14 rounded-full shadow-2xl flex items-center justify-center text-white transition-all duration-300 hover:scale-110 active:scale-90 ${isChatOpen ? "bg-slate-800 rotate-90" : "bg-blue-600"}`}
-        >
-          {isChatOpen ? (
-            <span className="text-xl">✕</span>
-          ) : (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="28"
-              height="28"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z" />
-            </svg>
-          )}
-          {!isChatOpen && (
-            <span className="absolute -top-1 -right-1 flex h-5 w-5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-5 w-5 bg-red-500 border-2 border-white"></span>
-            </span>
-          )}
-        </button>
-      </div>
     </div>
   );
 };
