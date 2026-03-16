@@ -170,7 +170,7 @@
 // };
 
 // export default QLQHXayDung;
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import Footer1 from "../Footer1";
@@ -203,8 +203,16 @@ import qhxdbt2 from "./image/BinhThuan2.jpg";
 import qhxdbt3 from "./image/BinhThuan3.jpg";
 import qhxdbt4 from "./image/BinhThuan4.jpg";
 
-const AppScreenshot = ({ src, alt }) => (
-  <div className="relative group cursor-pointer overflow-hidden rounded-2xl border-4 border-slate-800 shadow-xl transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+// (Giữ lại nếu bạn muốn dùng Zoom cho từng ảnh nhỏ,
+// nhưng hiện tại logic Modal bên dưới sẽ tối ưu hơn cho trải nghiệm người dùng)
+import Zoom from "react-medium-image-zoom";
+import "react-medium-image-zoom/dist/styles.css";
+
+const AppScreenshot = ({ src, alt, onOpen }) => (
+  <div
+    onClick={() => onOpen(src)}
+    className="relative group cursor-pointer overflow-hidden rounded-2xl border-4 border-slate-800 shadow-xl transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl"
+  >
     <img src={src} alt={alt} className="w-full h-auto object-cover" />
     <div className="absolute inset-0 bg-blue-600/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
       <span className="text-white font-bold bg-blue-600 px-4 py-2 rounded-full text-xs">
@@ -215,6 +223,9 @@ const AppScreenshot = ({ src, alt }) => (
 );
 
 const QLQHXayDung = () => {
+  // 1. Thêm State để lưu trữ ảnh đang được chọn
+  const [selectedImg, setSelectedImg] = useState(null);
+
   useEffect(() => {
     AOS.init({ duration: 1000, once: true });
   }, []);
@@ -335,17 +346,33 @@ const QLQHXayDung = () => {
               className="px-6 py-3 bg-blue-600 text-white rounded-full font-bold shadow-lg hover:bg-blue-700 transition-all flex items-center gap-2"
               data-aos="fade-left"
             >
-              Tải ứng dụng <i class="fab fa-google-play"></i>
+              Tải ứng dụng <i className="fab fa-google-play"></i>
             </a>
           </div>
           <div
             className="grid grid-cols-2 lg:grid-cols-4 gap-6"
             data-aos="fade-up"
           >
-            <AppScreenshot src={qhxdbd2} alt="Bình Dương App 1" />
-            <AppScreenshot src={qhxdbd3} alt="Bình Dương App 2" />
-            <AppScreenshot src={qhxdbd1} alt="Bình Dương App 3" />
-            <AppScreenshot src={qhxdbd4} alt="Bình Dương App 4" />
+            <AppScreenshot
+              src={qhxdbd2}
+              alt="Bình Dương 1"
+              onOpen={setSelectedImg}
+            />
+            <AppScreenshot
+              src={qhxdbd3}
+              alt="Bình Dương 2"
+              onOpen={setSelectedImg}
+            />
+            <AppScreenshot
+              src={qhxdbd1}
+              alt="Bình Dương 3"
+              onOpen={setSelectedImg}
+            />
+            <AppScreenshot
+              src={qhxdbd4}
+              alt="Bình Dương 4"
+              onOpen={setSelectedImg}
+            />
           </div>
         </div>
 
@@ -367,17 +394,33 @@ const QLQHXayDung = () => {
               className="px-6 py-3 bg-slate-800 text-white rounded-full font-bold shadow-lg hover:bg-slate-900 transition-all flex items-center gap-2"
               data-aos="fade-left"
             >
-              Tải ứng dụng <i class="fab fa-google-play"></i>
+              Tải ứng dụng <i className="fab fa-google-play"></i>
             </a>
           </div>
           <div
             className="grid grid-cols-2 lg:grid-cols-4 gap-6"
             data-aos="fade-up"
           >
-            <AppScreenshot src={qhxdbp1} alt="Bình Phước App 1" />
-            <AppScreenshot src={qhxdbp3} alt="Bình Phước App 2" />
-            <AppScreenshot src={qhxdbp2} alt="Bình Phước App 3" />
-            <AppScreenshot src={qhxdbp4} alt="Bình Phước App 4" />
+            <AppScreenshot
+              src={qhxdbp1}
+              alt="Bình Phước 1"
+              onOpen={setSelectedImg}
+            />
+            <AppScreenshot
+              src={qhxdbp3}
+              alt="Bình Phước 2"
+              onOpen={setSelectedImg}
+            />
+            <AppScreenshot
+              src={qhxdbp2}
+              alt="Bình Phước 3"
+              onOpen={setSelectedImg}
+            />
+            <AppScreenshot
+              src={qhxdbp4}
+              alt="Bình Phước 4"
+              onOpen={setSelectedImg}
+            />
           </div>
         </div>
 
@@ -394,20 +437,38 @@ const QLQHXayDung = () => {
             </div>
             <a
               href="https://play.google.com/store/apps/details?id=ditagis.dongthap.ttqhsdd"
+              target="_blank"
+              rel="noreferrer"
               className="px-6 py-3 bg-emerald-600 text-white rounded-full font-bold shadow-lg hover:bg-emerald-700 transition-all flex items-center gap-2"
               data-aos="fade-left"
             >
-              Tải ứng dụng <i class="fab fa-google-play"></i>
+              Tải ứng dụng <i className="fab fa-google-play"></i>
             </a>
           </div>
           <div
             className="grid grid-cols-2 lg:grid-cols-4 gap-6"
             data-aos="fade-up"
           >
-            <AppScreenshot src={qhxddt1} alt="Đồng Tháp 1" />
-            <AppScreenshot src={qhxddt2} alt="Đồng Tháp 2" />
-            <AppScreenshot src={qhxddt3} alt="Đồng Tháp 3" />
-            <AppScreenshot src={qhxddt4} alt="Đồng Tháp 4" />
+            <AppScreenshot
+              src={qhxddt1}
+              alt="Đồng Tháp 1"
+              onOpen={setSelectedImg}
+            />
+            <AppScreenshot
+              src={qhxddt2}
+              alt="Đồng Tháp 2"
+              onOpen={setSelectedImg}
+            />
+            <AppScreenshot
+              src={qhxddt3}
+              alt="Đồng Tháp 3"
+              onOpen={setSelectedImg}
+            />
+            <AppScreenshot
+              src={qhxddt4}
+              alt="Đồng Tháp 4"
+              onOpen={setSelectedImg}
+            />
           </div>
         </div>
 
@@ -424,20 +485,38 @@ const QLQHXayDung = () => {
             </div>
             <a
               href="https://play.google.com/store/apps/details?id=ditagis.phucat.ttqh"
+              target="_blank"
+              rel="noreferrer"
               className="px-6 py-3 bg-orange-600 text-white rounded-full font-bold shadow-lg hover:bg-orange-700 transition-all flex items-center gap-2"
               data-aos="fade-left"
             >
-              Tải ứng dụng <i class="fab fa-google-play"></i>
+              Tải ứng dụng <i className="fab fa-google-play"></i>
             </a>
           </div>
           <div
             className="grid grid-cols-2 lg:grid-cols-4 gap-6"
             data-aos="fade-up"
           >
-            <AppScreenshot src={qhxdpc1} alt="Phù Cát 1" />
-            <AppScreenshot src={qhxdpc2} alt="Phù Cát 2" />
-            <AppScreenshot src={qhxdpc3} alt="Phù Cát 3" />
-            <AppScreenshot src={qhxdpc4} alt="Phù Cát 4" />
+            <AppScreenshot
+              src={qhxdpc1}
+              alt="Phù Cát 1"
+              onOpen={setSelectedImg}
+            />
+            <AppScreenshot
+              src={qhxdpc2}
+              alt="Phù Cát 2"
+              onOpen={setSelectedImg}
+            />
+            <AppScreenshot
+              src={qhxdpc3}
+              alt="Phù Cát 3"
+              onOpen={setSelectedImg}
+            />
+            <AppScreenshot
+              src={qhxdpc4}
+              alt="Phù Cát 4"
+              onOpen={setSelectedImg}
+            />
           </div>
         </div>
 
@@ -454,20 +533,38 @@ const QLQHXayDung = () => {
             </div>
             <a
               href="https://play.google.com/store/apps/details?id=thong.tin.csdl.quy.hoach"
+              target="_blank"
+              rel="noreferrer"
               className="px-6 py-3 bg-cyan-600 text-white rounded-full font-bold shadow-lg hover:bg-cyan-700 transition-all flex items-center gap-2"
               data-aos="fade-left"
             >
-              Tải ứng dụng <i class="fab fa-google-play"></i>
+              Tải ứng dụng <i className="fab fa-google-play"></i>
             </a>
           </div>
           <div
             className="grid grid-cols-2 lg:grid-cols-4 gap-6"
             data-aos="fade-up"
           >
-            <AppScreenshot src={qhxdbt1} alt="Bình Thuận 1" />
-            <AppScreenshot src={qhxdbt2} alt="Bình Thuận 2" />
-            <AppScreenshot src={qhxdbt3} alt="Bình Thuận 3" />
-            <AppScreenshot src={qhxdbt4} alt="Bình Thuận 4" />
+            <AppScreenshot
+              src={qhxdbt1}
+              alt="Bình Thuận 1"
+              onOpen={setSelectedImg}
+            />
+            <AppScreenshot
+              src={qhxdbt2}
+              alt="Bình Thuận 2"
+              onOpen={setSelectedImg}
+            />
+            <AppScreenshot
+              src={qhxdbt3}
+              alt="Bình Thuận 3"
+              onOpen={setSelectedImg}
+            />
+            <AppScreenshot
+              src={qhxdbt4}
+              alt="Bình Thuận 4"
+              onOpen={setSelectedImg}
+            />
           </div>
         </div>
       </section>
@@ -514,6 +611,28 @@ const QLQHXayDung = () => {
           </div>
         </div>
       </section>
+
+      {/* --- MODAL HIỂN THỊ ẢNH PHÓNG TO --- */}
+      {selectedImg && (
+        <div
+          className="fixed inset-0 z-[1000] bg-black/90 flex items-center justify-center p-4 cursor-zoom-out animate-in fade-in duration-300"
+          onClick={() => setSelectedImg(null)}
+        >
+          <div className="relative max-w-5xl w-full flex justify-center items-center">
+            <img
+              src={selectedImg}
+              alt="Phóng to"
+              className="max-h-[90vh] max-w-full rounded-lg shadow-2xl object-contain animate-in zoom-in-95 duration-300"
+            />
+            <button
+              className="absolute -top-10 right-0 text-white text-4xl hover:text-red-500 transition-colors"
+              onClick={() => setSelectedImg(null)}
+            >
+              &times;
+            </button>
+          </div>
+        </div>
+      )}
 
       <TinTuc />
       <Footer1 />
