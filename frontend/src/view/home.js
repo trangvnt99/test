@@ -23,7 +23,55 @@ import GENCO3 from "../image/GENCO3.png";
 import EVNHCMC from "../image/EVNHCMC.png";
 import VNPT from "../image/VNPT.png";
 
-const StatItem = ({ finalNumber, label, iconClass, suffix = "" }) => {
+//Icons
+// import ChartSineIcon from "../components/ChartSineIcon"; // Kiểm tra lại đường dẫn file
+// import NewsIcon from "../components/NewsIcon";
+
+// const StatItem = ({ finalNumber, label, iconClass, suffix = "" }) => {
+//   const [count, setCount] = useState(0);
+
+//   useEffect(() => {
+//     let start = 0;
+//     const duration = 2000;
+//     const increment = Math.ceil(finalNumber / (duration / 16));
+
+//     const timer = setInterval(() => {
+//       start += increment;
+//       if (start >= finalNumber) {
+//         setCount(finalNumber);
+//         clearInterval(timer);
+//       } else {
+//         setCount(start);
+//       }
+//     }, 16);
+//     return () => clearInterval(timer);
+//   }, [finalNumber]);
+
+//   return (
+//     <div
+//       className="p-8 text-center flex flex-col items-center gap-2"
+//       data-aos="zoom-in"
+//     >
+//       {/* 1. Icon: Sử dụng font-light để nét mỏng, text-7xl để đủ to */}
+//       <div className="text-white text-7xl md:text-8xl mb-4 font-light opacity-90">
+//         <i className={`${iconClass} font-light`}></i>
+//       </div>
+
+//       {/* 2. Số: Chỉnh font-bold thay vì font-black để nhìn tinh tế hơn */}
+//       <div className="text-4xl md:text-5xl font-bold text-white tracking-tight">
+//         {count.toLocaleString()}
+//         {suffix}
+//       </div>
+
+//       {/* 3. Nhãn chữ: Thêm tracking-widest cho giống ảnh mẫu */}
+//       <div className="text-white font-medium uppercase tracking-[0.2em] text-[10px] md:text-xs mt-2 opacity-80">
+//         {label}
+//       </div>
+//     </div>
+//   );
+// };
+const StatItem = ({ finalNumber, label, iconClass, icon, suffix = "" }) => {
+  // Thêm props 'icon'
   const [count, setCount] = useState(0);
 
   useEffect(() => {
@@ -48,18 +96,16 @@ const StatItem = ({ finalNumber, label, iconClass, suffix = "" }) => {
       className="p-8 text-center flex flex-col items-center gap-2"
       data-aos="zoom-in"
     >
-      {/* 1. Icon: Sử dụng font-light để nét mỏng, text-7xl để đủ to */}
       <div className="text-white text-7xl md:text-8xl mb-4 font-light opacity-90">
-        <i className={`${iconClass} font-light`}></i>
+        {/* Kiểm tra: Nếu có truyền prop 'icon' thì render icon đó, ngược lại dùng iconClass */}
+        {icon ? icon : <i className={`${iconClass} font-light`}></i>}
       </div>
 
-      {/* 2. Số: Chỉnh font-bold thay vì font-black để nhìn tinh tế hơn */}
       <div className="text-4xl md:text-5xl font-bold text-white tracking-tight">
         {count.toLocaleString()}
         {suffix}
       </div>
 
-      {/* 3. Nhãn chữ: Thêm tracking-widest cho giống ảnh mẫu */}
       <div className="text-white font-medium uppercase tracking-[0.2em] text-[10px] md:text-xs mt-2 opacity-80">
         {label}
       </div>
@@ -405,12 +451,15 @@ const Home = () => {
         </div>
       </section>
 
-      {/* --- THÀNH TỰU --- (ĐÃ THAY ĐỔI NỀN) */}
-      <section className="py-3 bg-blue-300">
-        {" "}
-        {/* Thay đổi nền thành màu xanh của DITAGIS */}
-        <div className="container mx-auto px-6">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
+      {/* --- THÀNH TỰU --- (THAY ĐỔI: Gradient xanh chuyên nghiệp) */}
+      <section className="py-16 bg-gradient-to-br from-blue-950 via-blue-900 to-blue-800 text-white relative overflow-hidden">
+        {/* Thêm một vài vòng tròn mờ làm nền cho "bay" */}
+        <div className="absolute -top-10 -left-10 w-40 h-40 bg-blue-500/10 rounded-full blur-3xl"></div>
+        <div className="absolute -bottom-10 -right-10 w-60 h-60 bg-lime-500/10 rounded-full blur-3xl"></div>
+
+        <div className="container mx-auto px-6 relative z-10">
+          {/* Tăng gap và padding để các item "thở" */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-10 md:gap-16 text-center">
             <StatItem
               finalNumber={new Date().getFullYear() - 1994}
               label="Năm phát triển"
