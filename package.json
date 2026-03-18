@@ -11,9 +11,12 @@
     "cors": "^2.8.5",
     "express": "^4.21.1",
     "mysql2": "^3.11.3",
-    "react-medium-image-zoom": "^5.4.1"
+    "react-medium-image-zoom": "^5.4.1",
+    "react-quick-pinch-zoom": "^5.1.1",
+    "yet-another-react-lightbox": "^3.29.1"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "concurrently": "^9.2.1"
   }
 }

@@ -170,7 +170,7 @@
 // };
 
 // export default QLQHXayDung;
-import React, { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import Footer1 from "../Footer1";
@@ -186,27 +186,18 @@ import qhxdbp1 from "./image/QHXD_Binh_Phuoc_1.webp";
 import qhxdbp2 from "./image/QHXD_Binh_Phuoc_2.webp";
 import qhxdbp3 from "./image/QHXD_Binh_Phuoc_3.webp";
 import qhxdbp4 from "./image/QHXD_Binh_Phuoc_4.webp";
-
-// --- Import thêm các tỉnh còn thiếu ---
 import qhxddt1 from "./image/DongThap1.jpg";
 import qhxddt2 from "./image/DongThap2.jpg";
 import qhxddt3 from "./image/DongThap3.jpg";
 import qhxddt4 from "./image/DongThap4.jpg";
-
 import qhxdpc1 from "./image/PhuCat1.jpg";
 import qhxdpc2 from "./image/PhuCat2.jpg";
 import qhxdpc3 from "./image/PhuCat3.jpg";
 import qhxdpc4 from "./image/PhuCat4.jpg";
-
 import qhxdbt1 from "./image/BinhThuan1.jpg";
 import qhxdbt2 from "./image/BinhThuan2.jpg";
 import qhxdbt3 from "./image/BinhThuan3.jpg";
 import qhxdbt4 from "./image/BinhThuan4.jpg";
-
-// (Giữ lại nếu bạn muốn dùng Zoom cho từng ảnh nhỏ,
-// nhưng hiện tại logic Modal bên dưới sẽ tối ưu hơn cho trải nghiệm người dùng)
-import Zoom from "react-medium-image-zoom";
-import "react-medium-image-zoom/dist/styles.css";
 
 const AppScreenshot = ({ src, alt, onOpen }) => (
   <div
@@ -215,21 +206,130 @@ const AppScreenshot = ({ src, alt, onOpen }) => (
   >
     <img src={src} alt={alt} className="w-full h-auto object-cover" />
     <div className="absolute inset-0 bg-blue-600/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-      <span className="text-white font-bold bg-blue-600 px-4 py-2 rounded-full text-xs">
-        Phóng to
+      <span className="text-white font-bold bg-blue-600/90 backdrop-blur-sm px-4 py-2 rounded-full text-xs shadow-lg">
+        Xem chi tiết
       </span>
     </div>
   </div>
 );
 
 const QLQHXayDung = () => {
-  // 1. Thêm State để lưu trữ ảnh đang được chọn
-  const [selectedImg, setSelectedImg] = useState(null);
+  const [currentIndex, setCurrentIndex] = useState(null);
+  const [scale, setScale] = useState(1);
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [isDragging, setIsDragging] = useState(false);
+  const [startPos, setStartPos] = useState({ x: 0, y: 0 });
+
+  // Hàm reset trạng thái ảnh (dùng khi đổi ảnh hoặc đóng modal)
+  const resetZoom = () => {
+    setScale(1);
+    setPosition({ x: 0, y: 0 });
+  };
+  // Tạo mảng tổng hợp để quản lý việc Next/Prev ảnh
+  const allImages = [
+    qhxdbd2,
+    qhxdbd3,
+    qhxdbd1,
+    qhxdbd4,
+    qhxdbp1,
+    qhxdbp3,
+    qhxdbp2,
+    qhxdbp4,
+    qhxddt1,
+    qhxddt2,
+    qhxddt3,
+    qhxddt4,
+    qhxdpc1,
+    qhxdpc2,
+    qhxdpc3,
+    qhxdpc4,
+    qhxdbt1,
+    qhxdbt2,
+    qhxdbt3,
+    qhxdbt4,
+  ];
 
   useEffect(() => {
     AOS.init({ duration: 1000, once: true });
   }, []);
 
+  // const closeModal = () => {
+  //   setCurrentIndex(null);
+  //   resetZoom(); // Thêm dòng này
+  // };
+
+  const closeModal = useCallback(() => {
+    setCurrentIndex(null);
+    resetZoom();
+  }, []);
+
+  const openModal = (src) => {
+    const index = allImages.indexOf(src);
+    setCurrentIndex(index);
+  };
+  const handleDoubleClick = (e) => {
+    e.stopPropagation(); // Ngăn sự kiện ảnh hưởng đến các lớp bên dưới
+    if (scale > 1) {
+      resetZoom(); // Nếu đang phóng to thì thu nhỏ về 1x
+    } else {
+      setScale(2.5); // Nếu đang 1x thì phóng to lên 2.5x
+      // Bạn có thể tùy chỉnh vị trí x, y để phóng vào tâm điểm click nếu muốn nâng cao hơn
+    }
+  };
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") {
+        closeModal();
+      }
+    };
+
+    // Chỉ lắng nghe khi modal đang mở
+    if (currentIndex !== null) {
+      window.addEventListener("keydown", handleKeyDown);
+    }
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [currentIndex, closeModal]);
+
+  const nextImg = (e) => {
+    e.stopPropagation();
+    resetZoom(); // Thêm dòng này
+    setCurrentIndex((prev) => (prev + 1) % allImages.length);
+  };
+
+  const prevImg = (e) => {
+    e.stopPropagation();
+    resetZoom(); // Thêm dòng này
+    setCurrentIndex((prev) => (prev - 1 + allImages.length) % allImages.length);
+  };
+  const handleWheel = (e) => {
+    if (currentIndex === null) return;
+    e.stopPropagation();
+    // Tăng/giảm 0.2 mỗi lần cuộn, giới hạn từ 1x đến 5x
+    const delta = e.deltaY > 0 ? -0.2 : 0.2;
+    setScale((prev) => Math.min(Math.max(1, prev + delta), 5));
+  };
+
+  const handleMouseDown = (e) => {
+    if (scale > 1) {
+      setIsDragging(true);
+      // Tính toán vị trí bắt đầu click so với vị trí hiện tại của ảnh
+      setStartPos({ x: e.clientX - position.x, y: e.clientY - position.y });
+    }
+  };
+
+  const handleMouseMove = (e) => {
+    if (isDragging && scale > 1) {
+      setPosition({
+        x: e.clientX - startPos.x,
+        y: e.clientY - startPos.y,
+      });
+    }
+  };
+
+  const handleMouseUp = () => setIsDragging(false);
   return (
     <div className="min-h-screen bg-white font-sans antialiased text-slate-900 overflow-x-hidden">
       {/* --- HERO SECTION --- */}
@@ -344,7 +444,6 @@ const QLQHXayDung = () => {
               target="_blank"
               rel="noreferrer"
               className="px-6 py-3 bg-blue-600 text-white rounded-full font-bold shadow-lg hover:bg-blue-700 transition-all flex items-center gap-2"
-              data-aos="fade-left"
             >
               Tải ứng dụng <i className="fab fa-google-play"></i>
             </a>
@@ -356,22 +455,22 @@ const QLQHXayDung = () => {
             <AppScreenshot
               src={qhxdbd2}
               alt="Bình Dương 1"
-              onOpen={setSelectedImg}
+              onOpen={openModal}
             />
             <AppScreenshot
               src={qhxdbd3}
               alt="Bình Dương 2"
-              onOpen={setSelectedImg}
+              onOpen={openModal}
             />
             <AppScreenshot
               src={qhxdbd1}
               alt="Bình Dương 3"
-              onOpen={setSelectedImg}
+              onOpen={openModal}
             />
             <AppScreenshot
               src={qhxdbd4}
               alt="Bình Dương 4"
-              onOpen={setSelectedImg}
+              onOpen={openModal}
             />
           </div>
         </div>
@@ -392,7 +491,6 @@ const QLQHXayDung = () => {
               target="_blank"
               rel="noreferrer"
               className="px-6 py-3 bg-slate-800 text-white rounded-full font-bold shadow-lg hover:bg-slate-900 transition-all flex items-center gap-2"
-              data-aos="fade-left"
             >
               Tải ứng dụng <i className="fab fa-google-play"></i>
             </a>
@@ -404,22 +502,22 @@ const QLQHXayDung = () => {
             <AppScreenshot
               src={qhxdbp1}
               alt="Bình Phước 1"
-              onOpen={setSelectedImg}
+              onOpen={openModal}
             />
             <AppScreenshot
               src={qhxdbp3}
               alt="Bình Phước 2"
-              onOpen={setSelectedImg}
+              onOpen={openModal}
             />
             <AppScreenshot
               src={qhxdbp2}
               alt="Bình Phước 3"
-              onOpen={setSelectedImg}
+              onOpen={openModal}
             />
             <AppScreenshot
               src={qhxdbp4}
               alt="Bình Phước 4"
-              onOpen={setSelectedImg}
+              onOpen={openModal}
             />
           </div>
         </div>
@@ -440,7 +538,6 @@ const QLQHXayDung = () => {
               target="_blank"
               rel="noreferrer"
               className="px-6 py-3 bg-emerald-600 text-white rounded-full font-bold shadow-lg hover:bg-emerald-700 transition-all flex items-center gap-2"
-              data-aos="fade-left"
             >
               Tải ứng dụng <i className="fab fa-google-play"></i>
             </a>
@@ -449,26 +546,10 @@ const QLQHXayDung = () => {
             className="grid grid-cols-2 lg:grid-cols-4 gap-6"
             data-aos="fade-up"
           >
-            <AppScreenshot
-              src={qhxddt1}
-              alt="Đồng Tháp 1"
-              onOpen={setSelectedImg}
-            />
-            <AppScreenshot
-              src={qhxddt2}
-              alt="Đồng Tháp 2"
-              onOpen={setSelectedImg}
-            />
-            <AppScreenshot
-              src={qhxddt3}
-              alt="Đồng Tháp 3"
-              onOpen={setSelectedImg}
-            />
-            <AppScreenshot
-              src={qhxddt4}
-              alt="Đồng Tháp 4"
-              onOpen={setSelectedImg}
-            />
+            <AppScreenshot src={qhxddt1} alt="Đồng Tháp 1" onOpen={openModal} />
+            <AppScreenshot src={qhxddt2} alt="Đồng Tháp 2" onOpen={openModal} />
+            <AppScreenshot src={qhxddt3} alt="Đồng Tháp 3" onOpen={openModal} />
+            <AppScreenshot src={qhxddt4} alt="Đồng Tháp 4" onOpen={openModal} />
           </div>
         </div>
 
@@ -488,7 +569,6 @@ const QLQHXayDung = () => {
               target="_blank"
               rel="noreferrer"
               className="px-6 py-3 bg-orange-600 text-white rounded-full font-bold shadow-lg hover:bg-orange-700 transition-all flex items-center gap-2"
-              data-aos="fade-left"
             >
               Tải ứng dụng <i className="fab fa-google-play"></i>
             </a>
@@ -497,26 +577,10 @@ const QLQHXayDung = () => {
             className="grid grid-cols-2 lg:grid-cols-4 gap-6"
             data-aos="fade-up"
           >
-            <AppScreenshot
-              src={qhxdpc1}
-              alt="Phù Cát 1"
-              onOpen={setSelectedImg}
-            />
-            <AppScreenshot
-              src={qhxdpc2}
-              alt="Phù Cát 2"
-              onOpen={setSelectedImg}
-            />
-            <AppScreenshot
-              src={qhxdpc3}
-              alt="Phù Cát 3"
-              onOpen={setSelectedImg}
-            />
-            <AppScreenshot
-              src={qhxdpc4}
-              alt="Phù Cát 4"
-              onOpen={setSelectedImg}
-            />
+            <AppScreenshot src={qhxdpc1} alt="Phù Cát 1" onOpen={openModal} />
+            <AppScreenshot src={qhxdpc2} alt="Phù Cát 2" onOpen={openModal} />
+            <AppScreenshot src={qhxdpc3} alt="Phù Cát 3" onOpen={openModal} />
+            <AppScreenshot src={qhxdpc4} alt="Phù Cát 4" onOpen={openModal} />
           </div>
         </div>
 
@@ -536,7 +600,6 @@ const QLQHXayDung = () => {
               target="_blank"
               rel="noreferrer"
               className="px-6 py-3 bg-cyan-600 text-white rounded-full font-bold shadow-lg hover:bg-cyan-700 transition-all flex items-center gap-2"
-              data-aos="fade-left"
             >
               Tải ứng dụng <i className="fab fa-google-play"></i>
             </a>
@@ -548,22 +611,22 @@ const QLQHXayDung = () => {
             <AppScreenshot
               src={qhxdbt1}
               alt="Bình Thuận 1"
-              onOpen={setSelectedImg}
+              onOpen={openModal}
             />
             <AppScreenshot
               src={qhxdbt2}
               alt="Bình Thuận 2"
-              onOpen={setSelectedImg}
+              onOpen={openModal}
             />
             <AppScreenshot
               src={qhxdbt3}
               alt="Bình Thuận 3"
-              onOpen={setSelectedImg}
+              onOpen={openModal}
             />
             <AppScreenshot
               src={qhxdbt4}
               alt="Bình Thuận 4"
-              onOpen={setSelectedImg}
+              onOpen={openModal}
             />
           </div>
         </div>
@@ -612,25 +675,101 @@ const QLQHXayDung = () => {
         </div>
       </section>
 
-      {/* --- MODAL HIỂN THỊ ẢNH PHÓNG TO --- */}
-      {selectedImg && (
+      {/* --- MODAL LIGHTBOX NÂNG CẤP (ĐÃ CẬP NHẬT ZOOM/DRAG) --- */}
+      {currentIndex !== null && (
         <div
-          className="fixed inset-0 z-[1000] bg-black/90 flex items-center justify-center p-4 cursor-zoom-out animate-in fade-in duration-300"
-          onClick={() => setSelectedImg(null)}
+          className="fixed inset-0 z-[1000] bg-slate-950/95 flex items-center justify-center p-4 backdrop-blur-sm overflow-hidden animate-in fade-in duration-300"
+          // onClick={closeModal} // Đã bỏ để tránh ấn nhầm ra ngoài hình thì bị đóng
+          onWheel={handleWheel}
         >
-          <div className="relative max-w-5xl w-full flex justify-center items-center">
-            <img
-              src={selectedImg}
-              alt="Phóng to"
-              className="max-h-[90vh] max-w-full rounded-lg shadow-2xl object-contain animate-in zoom-in-95 duration-300"
-            />
-            <button
-              className="absolute -top-10 right-0 text-white text-4xl hover:text-red-500 transition-colors"
-              onClick={() => setSelectedImg(null)}
+          {/* Nút đóng */}
+          <button
+            className="absolute top-6 right-8 text-white/70 hover:text-white text-5xl transition-colors z-[1010]"
+            onClick={closeModal}
+          >
+            &times;
+          </button>
+
+          {/* Nút Previous */}
+          <button
+            onClick={prevImg}
+            className="absolute left-4 md:left-8 p-3 text-white/50 hover:text-white bg-white/10 hover:bg-white/20 rounded-full transition-all z-[1010]"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={2.5}
+              stroke="currentColor"
+              className="w-8 h-8"
             >
-              &times;
-            </button>
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M15.75 19.5L8.25 12l7.5-7.5"
+              />
+            </svg>
+          </button>
+
+          {/* Container Ảnh */}
+          <div className="relative max-w-5xl w-full flex flex-col justify-center items-center select-none">
+            <div
+              className={`transition-transform duration-200 ease-out ${scale > 1 ? "cursor-grab" : "cursor-zoom-in"} ${isDragging ? "cursor-grabbing" : ""}`}
+              style={{
+                transform: `translate(${position.x}px, ${position.y}px) scale(${scale})`,
+                touchAction: "none",
+              }}
+              onClick={(e) => e.stopPropagation()}
+              onDoubleClick={handleDoubleClick}
+              onMouseDown={handleMouseDown}
+              onMouseMove={handleMouseMove}
+              onMouseUp={handleMouseUp}
+              onMouseLeave={handleMouseUp}
+            >
+              <img
+                src={allImages[currentIndex]}
+                alt="Preview"
+                className="max-h-[85vh] max-w-full rounded-lg shadow-2xl object-contain pointer-events-none animate-in zoom-in-95 duration-300"
+              />
+            </div>
+
+            {/* Chỉ số và hướng dẫn */}
+            <div className="mt-8 flex flex-col items-center gap-2">
+              <div className="text-white/60 font-medium tracking-widest uppercase text-xs bg-white/5 px-4 py-1 rounded-full">
+                {currentIndex + 1} / {allImages.length}
+              </div>
+              {scale === 1 ? (
+                <p className="text-white/30 text-[10px] animate-pulse italic">
+                  Cuộn chuột để phóng to bản đồ
+                </p>
+              ) : (
+                <p className="text-lime-400 text-[10px] font-bold">
+                  Đang Zoom {scale.toFixed(1)}x - Nhấp giữ chuột để kéo ảnh
+                </p>
+              )}
+            </div>
           </div>
+
+          {/* Nút Next */}
+          <button
+            onClick={nextImg}
+            className="absolute right-4 md:right-8 p-3 text-white/50 hover:text-white bg-white/10 hover:bg-white/20 rounded-full transition-all z-[1010]"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={2.5}
+              stroke="currentColor"
+              className="w-8 h-8"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M8.25 4.5l7.5 7.5-7.5 7.5"
+              />
+            </svg>
+          </button>
         </div>
       )}
 
