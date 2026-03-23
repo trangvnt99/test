@@ -520,6 +520,24 @@ export const content = {
       read_more: "Xem chi tiết",
       date_format: "vi-VN",
     },
+
+    //Login
+    login: {
+      title: "Đăng nhập",
+      subtitle: "Nhập thông tin xác thực để truy cập hệ thống.",
+      username_label: "Tên đăng nhập",
+      username_placeholder: "Nhập username",
+      password_label: "Mật khẩu",
+      password_placeholder: "••••••••",
+      forgot_password: "Quên mật khẩu?",
+      contact_admin:
+        "Vui lòng liên hệ Quản trị viên hệ thống để cấp lại mật khẩu.",
+      btn_login: "Đăng nhập",
+      btn_authenticating: "Đang xác thực...",
+      error_invalid: "Tên đăng nhập hoặc mật khẩu không chính xác.",
+      error_fallback: "Hệ thống đang bảo trì hoặc mất kết nối mạng.",
+      copyright: "© 2026 DITAGIS Center. Bảo lưu mọi quyền.",
+    },
   },
   en: {
     menu: {
@@ -1041,6 +1059,24 @@ export const content = {
       loading: "Updating news...",
       read_more: "Read more",
       date_format: "en-US",
+    },
+
+    //Login
+    login: {
+      title: "Sign In",
+      subtitle: "Enter your credentials to access the system.",
+      username_label: "Username",
+      username_placeholder: "Enter username",
+      password_label: "Password",
+      password_placeholder: "••••••••",
+      forgot_password: "Forgot password?",
+      contact_admin:
+        "Please contact the System Administrator to reset your password.",
+      btn_login: "Sign In",
+      btn_authenticating: "Authenticating...",
+      error_invalid: "Invalid username or password.",
+      error_fallback: "The system is under maintenance or connection lost.",
+      copyright: "© 2026 DITAGIS Center. All rights reserved.",
     },
   },
 };

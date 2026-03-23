@@ -65,7 +65,7 @@ class Footer1 extends React.Component {
         </div>
 
         <div className="text-center text-gray-400 bg-gray-600 text-xl h-10 content-center w-full">
-          Copyright 2026 © <strong>DITAGIS</strong>
+          Copyright 2026 © <strong>DITAGIS Center</strong>
         </div>
       </footer>
     );

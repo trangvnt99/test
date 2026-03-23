@@ -1,7 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { useLanguage } from "../context/LanguageContext"; // Import context
+import { content as languageData } from "../data/language";
 export default function Login() {
+  const { lang } = useLanguage();
+  const t = languageData[lang]?.login || {};
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -24,8 +27,13 @@ export default function Login() {
 
       const data = await res.json();
 
+      // if (!res.ok) {
+      //   setError(data.message || "Tên đăng nhập hoặc mật khẩu không chính xác");
+      //   setIsLoading(false);
+      //   return;
+      // }
       if (!res.ok) {
-        setError(data.message || "Tên đăng nhập hoặc mật khẩu không chính xác");
+        setError(data.message || t.error_invalid); // "Tên đăng nhập hoặc mật khẩu không chính xác"
         setIsLoading(false);
         return;
       }
@@ -39,8 +47,12 @@ export default function Login() {
       } else {
         navigate("/");
       }
+      // } catch (err) {
+      //   setError("Hệ thống đang bảo trì hoặc mất kết nối mạng.");
+      //   setIsLoading(false);
+      // }
     } catch (err) {
-      setError("Hệ thống đang bảo trì hoặc mất kết nối mạng.");
+      setError(t.error_fallback); // "Hệ thống đang bảo trì..."
       setIsLoading(false);
     }
   }
@@ -88,10 +100,12 @@ export default function Login() {
             {/* Header Form */}
             <div className="mb-8">
               <h3 className="text-3xl font-bold text-slate-900 mb-2">
-                Đăng nhập
+                {/* Đăng nhập */}
+                {t.title}
               </h3>
               <p className="text-slate-500 font-medium">
-                Nhập thông tin xác thực để truy cập hệ thống.
+                {/* Nhập thông tin xác thực để truy cập hệ thống. */}
+                {t.subtitle}
               </p>
             </div>
 
@@ -107,14 +121,16 @@ export default function Login() {
               {/* Input Username */}
               <div className="space-y-2">
                 <label className="text-sm font-bold text-slate-700">
-                  Tên đăng nhập
+                  {/* Tên đăng nhập */}
+                  {t.username_label}
                 </label>
                 <div className="relative flex items-center group">
                   <i className="bi bi-person absolute left-4 text-slate-400 text-xl group-focus-within:text-blue-600 transition-colors"></i>
                   <input
                     type="text"
                     className="w-full bg-slate-50 border border-slate-200 text-slate-900 font-medium rounded-2xl py-3.5 pl-12 pr-4 focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 focus:bg-white transition-all placeholder:text-slate-400 placeholder:font-normal"
-                    placeholder="Nhập username"
+                    // placeholder="Nhập username"
+                    placeholder={t.username_placeholder}
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                     required
@@ -127,7 +143,8 @@ export default function Login() {
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
                   <label className="text-sm font-bold text-slate-700">
-                    Mật khẩu
+                    {/* Mật khẩu */}
+                    {t.password_label}
                   </label>
                   <div>
                     {/* Nút Quên mật khẩu */}
@@ -135,17 +152,22 @@ export default function Login() {
                       className="text-sm font-bold text-blue-600 hover:text-blue-800 transition-colors cursor-pointer"
                       onClick={() => setShowForgotMsg(true)}
                     >
-                      Quên mật khẩu?
+                      {/* Quên mật khẩu? */}
+                      {t.forgot_password}
                     </div>
 
                     {/* Hộp thông báo xuất hiện khi Click (State Alert) */}
                     {showForgotMsg && (
                       <div className="mt-3 p-3 bg-blue-50 border-l-4 border-blue-500 text-blue-700 text-sm animate-fade-in d-flex justify-content-between align-items-center">
-                        <span>
+                        {/* <span>
                           <i className="bi bi-info-circle-fill me-2"></i>
                           Vui lòng liên hệ{" "}
                           <strong>Quản trị viên hệ thống</strong> để cấp lại mật
                           khẩu.
+                        </span> */}
+                        <span>
+                          <i className="bi bi-info-circle-fill me-2"></i>
+                          {t.contact_admin}
                         </span>
                         <button
                           className="btn-close small"
@@ -179,11 +201,14 @@ export default function Login() {
                 {isLoading ? (
                   <>
                     <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-                    <span>Đang xác thực...</span>
+                    {/* <span>Đang xác thực...</span> */}
+                    <span>{t.btn_authenticating}</span>{" "}
+                    {/* "Đang xác thực..." */}
                   </>
                 ) : (
                   <>
-                    <span>Đăng nhập</span>
+                    {/* <span>Đăng nhập</span> */}
+                    <span>{t.btn_login}</span>
                     <i className="bi bi-arrow-right"></i>
                   </>
                 )}
@@ -193,7 +218,8 @@ export default function Login() {
             {/* Footer Form */}
             <div className="text-center mt-12 space-y-1">
               <p className="text-slate-400 text-xs font-medium">
-                © 2026 DITAGIS Center. All rights reserved.
+                {/* © 2026 DITAGIS Center. All rights reserved. */}
+                {t.copyright}
               </p>
             </div>
           </div>
