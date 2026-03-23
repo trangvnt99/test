@@ -19,6 +19,7 @@ import ArticleDetail from "./components/ArticleDetail";
 import CreateArticle from "./components/CreateArticle";
 import AdminDashboard from "./components/AdminDashboard";
 import EditArticle from "./components/EditArticle";
+import ProtectedRoute from "./components/auth/ProtectedRoute";
 
 // --- THÊM DÒNG NÀY ---
 import Chatbox from "./components/ChatBox";
@@ -57,10 +58,18 @@ function App() {
                 />
                 <Route path="/thongBao" element={<ArticleList />} />
                 <Route path="/articles/:id" element={<ArticleDetail />} />
-                <Route
+                {/* <Route
                   path="/admin/articles/new"
                   element={<CreateArticle />}
-                />{" "}
+                />{" "} */}
+                <Route
+                  path="/admin/articles/new"
+                  element={
+                    <ProtectedRoute>
+                      <CreateArticle />
+                    </ProtectedRoute>
+                  }
+                />
                 {/* Route cho form nhập liệu */}
                 <Route path="/CanhBaoNgap" element={<CanhBaoNgap />} />
                 <Route path="/HeThongCapNuoc" element={<HeThongCapNuoc />} />
@@ -70,10 +79,26 @@ function App() {
                 />
                 <Route path="/HeThongCapDien" element={<HeThongCapDien />} />
                 <Route path="/login" element={<Login />} />
-                <Route path="/admin/dashboard" element={<AdminDashboard />} />
+                {/* <Route path="/admin/dashboard" element={<AdminDashboard />} /> */}
                 <Route
+                  path="/admin/dashboard"
+                  element={
+                    <ProtectedRoute>
+                      <AdminDashboard />
+                    </ProtectedRoute>
+                  }
+                />
+                {/* <Route
                   path="/admin/articles/edit/:id"
                   element={<EditArticle />}
+                /> */}
+                <Route
+                  path="/admin/articles/edit/:id"
+                  element={
+                    <ProtectedRoute>
+                      <EditArticle />
+                    </ProtectedRoute>
+                  }
                 />
               </Routes>
 
