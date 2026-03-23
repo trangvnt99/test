@@ -538,6 +538,54 @@ export const content = {
       error_fallback: "Hệ thống đang bảo trì hoặc mất kết nối mạng.",
       copyright: "© 2026 DITAGIS Center. Bảo lưu mọi quyền.",
     },
+
+    //Tuyển sinh
+    admission: {
+      uni_name: "TRƯỜNG ĐẠI HỌC BÁCH KHOA TP.HCM",
+      center_name: "TRUNG TÂM CÔNG NGHỆ THÔNG TIN ĐỊA LÝ - DITAGIS",
+      country_name: "CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM",
+      motto: "Độc lập – Tự do – Hạnh phúc",
+      location_date: "TP Hồ Chí Minh, ngày 21 tháng 06 năm 2024",
+      main_title: "THÔNG BÁO",
+      sub_title: "Về việc mở các lớp Đào tạo ArcGIS",
+      intro:
+        "Thực hiện kế hoạch đào tạo năm 2024, Trung Tâm Công Nghệ Thông Tin Địa Lý DITAGIS – Trường Đại Học Bách Khoa TP.HCM mở lớp Đào tạo khóa học ArcGIS tại Thành phố Hồ Chí Minh, cụ thể như sau:",
+
+      section_1_title: "1. Đối tượng đào tạo:",
+      section_1_content: [
+        "- Tất cả các cán bộ, sinh viên cao học và đại học có nhu cầu ứng dụng GIS để giải quyết các bài toán chuyên ngành và bài toán quản lý trong các lĩnh vực: Môi trường, Địa chất, Trắc địa, Quản lý đất đai, Lâm nghiệp Xây dựng, Quản lý lưới điện, Quy hoạch đô thị, Giao thông vận tải, Công nghệ thông tin, Khí tượng thủy văn, Viễn thông, Cấp nước, Thoát nước…",
+        "- Các học viên đã được biết về GIS và phần mềm ArcGIS.",
+      ],
+
+      section_2_title: "2. Địa điểm đào tạo:",
+      section_2_content:
+        "TRUNG TÂM CÔNG NGHỆ THÔNG TIN ĐỊA LÝ – DITAGIS. Địa chỉ: Trường Đại học Bách Khoa TP.HCM - 268 Lý Thường Kiệt, Phường Diên Hồng, TP.HCM.",
+
+      section_3_title: "3. Thời gian đào tạo:",
+      section_3_content: [
+        "Lớp học vào các buổi tối Thứ 2 – 4 – 6 trong tuần bắt đầu từ 18g00 – 20h45. (ArcGIS Căn bản)",
+        "Lớp học vào các buổi tối Thứ 3 – 5 – 7 trong tuần bắt đầu từ 18g00 – 20h45. (ArcGIS Nâng cao)",
+        "Thời lượng học: 10 buổi. Học viên đạt yêu cầu sẽ được cấp chứng nhận hoàn tất khóa học trong vòng 02 tuần sau khi thi cuối khóa.",
+      ],
+
+      section_4_title: "4. Thời gian đăng ký học:",
+      section_4_content:
+        "Từ ngày ra thông báo (đăng ký ghi danh từ 08:00 đến 17:30 thứ Hai đến Thứ Sáu). Ưu tiên cho các học viên đăng ký sớm.",
+
+      section_5_title: "5. Thời gian nhập học:",
+      section_5_content:
+        "Khi có đủ sỉ số học viên đăng ký (15 học viên), Trung Tâm sẽ mở lớp học. Các khoá học sẽ được khai giảng xuyên suốt trong năm. Quý học viên có nhu cầu liên hệ Trung tâm điện thoại: (028) 3864 2768 hoặc 0985 76 96 86 (Cô Tho).",
+
+      section_6_title: "6. Học phí:",
+      section_6_content: [
+        "5.500.000 đ/ học viên đối với lớp ArcGIS Căn bản",
+        "6.500.000 đ/ học viên đối với lớp ArcGIS Nâng cao",
+      ],
+
+      section_7_title: "7. Nơi đăng ký ghi danh:",
+      section_7_content:
+        "Mọi chi tiết vui lòng liên hệ: Văn phòng Trung tâm DITAGIS – Tòa C7 – Trường Đại học Bách Khoa TP.HCM – 268 Lý Thường Kiệt, Phường 14, Quận 10, Thành Phố Hồ Chí Minh.",
+    },
   },
   en: {
     menu: {
@@ -658,7 +706,7 @@ export const content = {
       hero_title: "CONTACT US",
       hero_sub: "DITAGIS is always ready to listen and accompany you",
       address: "Address",
-      address_detail: "268 Ly Thuong Kiet, Ward 14, District 10, HCMC",
+      address_detail: "268 Ly Thuong Kiet, Dien Hong Ward, HCMC",
       phone: "Phone",
       fax: "Fax",
       email: "Email",
@@ -1077,6 +1125,54 @@ export const content = {
       error_invalid: "Invalid username or password.",
       error_fallback: "The system is under maintenance or connection lost.",
       copyright: "© 2026 DITAGIS Center. All rights reserved.",
+    },
+
+    //Tuyển sinh
+    admission: {
+      uni_name: "HO CHI MINH CITY UNIVERSITY OF TECHNOLOGY",
+      center_name: "GEOGRAPHIC INFORMATION SYSTEM CENTER - DITAGIS",
+      country_name: "THE SOCIALIST REPUBLIC OF VIETNAM",
+      motto: "Independence – Freedom – Happiness",
+      location_date: "Ho Chi Minh City, June 21, 2024",
+      main_title: "ANNOUNCEMENT",
+      sub_title: "Regarding the Opening of ArcGIS Training Classes",
+      intro:
+        "In implementation of the 2024 training plan, the Geographic Information System Center (DITAGIS) – Ho Chi Minh City University of Technology is opening ArcGIS training courses in Ho Chi Minh City as follows:",
+
+      section_1_title: "1. Target Audience:",
+      section_1_content: [
+        "- All officials, graduate and undergraduate students who need to apply GIS to solve specialized and management problems in fields such as: Environment, Geology, Geodesy, Land Management, Forestry, Construction, Power Grid Management, Urban Planning, Transportation, Information Technology, Hydrometeorology, Telecommunications, Water Supply, Drainage...",
+        "- Students who already have basic knowledge of GIS and ArcGIS software.",
+      ],
+
+      section_2_title: "2. Training Location:",
+      section_2_content:
+        "GEOGRAPHIC INFORMATION SYSTEM CENTER – DITAGIS. Address: Ho Chi Minh City University of Technology - 268 Ly Thuong Kiet, Dien Hong Ward, HCMC.",
+
+      section_3_title: "3. Training Time:",
+      section_3_content: [
+        "Classes on Monday – Wednesday – Friday evenings from 18:00 – 20:45. (Basic ArcGIS)",
+        "Classes on Tuesday – Thursday – Saturday evenings from 18:00 – 20:45. (Advanced ArcGIS)",
+        "Duration: 10 sessions. Qualified students will receive a certificate of completion within 02 weeks after the final exam.",
+      ],
+
+      section_4_title: "4. Registration Time:",
+      section_4_content:
+        "From the date of announcement (registration from 08:00 to 17:30, Monday to Friday). Priority for early registration.",
+
+      section_5_title: "5. Enrollment Time:",
+      section_5_content:
+        "Classes will open once the minimum number of students (15) is reached. Courses are launched continuously throughout the year. For more information, contact the Center at: (028) 3864 2768 or 0985 76 96 86 (Ms. Tho).",
+
+      section_6_title: "6. Tuition Fees:",
+      section_6_content: [
+        "5,500,000 VND/student for Basic ArcGIS class",
+        "6,500,000 VND/student for Advanced ArcGIS class",
+      ],
+
+      section_7_title: "7. Registration Venue:",
+      section_7_content:
+        "For further details, please contact: DITAGIS Office – Building C7 – Ho Chi Minh City University of Technology – 268 Ly Thuong Kiet, Dien Hong Ward, Ho Chi Minh City.",
     },
   },
 };
