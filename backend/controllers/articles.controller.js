@@ -3,8 +3,7 @@ const db = require('../db');
 // 1. Lấy danh sách tất cả bài viết
 exports.getAllArticles = async (req, res) => {
     try {
-        // Không cần JOIN nữa vì author đã là tên tác giả
-        const query = 'SELECT id, title, content, author, created_at FROM articles ORDER BY created_at DESC';
+        const query = 'SELECT id, title, title_en, content, content_en, author, created_at, is_visible FROM articles ORDER BY created_at DESC';
         const [articles] = await db.query(query);
 
         res.status(200).json(articles);
@@ -13,11 +12,11 @@ exports.getAllArticles = async (req, res) => {
     }
 };
 
-// 2. Lấy chi tiết 1 bài viết cụ thể theo ID
+// 2. Lấy chi tiết 1 bài viết cụ thể theo ID 
 exports.getArticleById = async (req, res) => {
     const articleId = req.params.id;
     try {
-        const query = 'SELECT id, title, content, author, created_at FROM articles WHERE id = ?';
+        const query = 'SELECT id, title, title_en, content, content_en, author, created_at, is_visible FROM articles WHERE id = ?';
         const [article] = await db.query(query, [articleId]);
 
         if (article.length === 0) {
@@ -30,19 +29,24 @@ exports.getArticleById = async (req, res) => {
     }
 };
 
-// 3. Thêm bài viết mới (Cần quyền Admin)
+// 3. Thêm bài viết mới
 exports.createArticle = async (req, res) => {
-    const { title, content } = req.body;
-    // Lấy thẳng username từ token đã được giải mã trong middleware
+    const { title, title_en, content, content_en } = req.body;
     const authorName = req.user.username;
 
     if (!title || !content) {
-        return res.status(400).json({ message: "Tiêu đề và nội dung không được để trống!" });
+        return res.status(400).json({ message: "Tiêu đề và nội dung (Tiếng Việt) không được để trống!" });
     }
 
     try {
-        const query = 'INSERT INTO articles (title, content, author) VALUES (?, ?, ?)';
-        const [result] = await db.query(query, [title, content, authorName]);
+        const query = 'INSERT INTO articles (title, title_en, content, content_en, author) VALUES (?, ?, ?, ?, ?)';
+        const [result] = await db.query(query, [
+            title,
+            title_en || null,
+            content,
+            content_en || null,
+            authorName
+        ]);
 
         res.status(201).json({
             message: "Tạo bài viết thành công!",
@@ -53,13 +57,13 @@ exports.createArticle = async (req, res) => {
     }
 };
 
-// 4. Cập nhật bài viết (Cần quyền Admin)
+// 4. Cập nhật bài viết
 exports.updateArticle = async (req, res) => {
     const articleId = req.params.id;
-    const { title, content } = req.body;
+    const { title, title_en, content, content_en } = req.body;
 
     if (!title || !content) {
-        return res.status(400).json({ message: "Tiêu đề và nội dung không được để trống!" });
+        return res.status(400).json({ message: "Tiêu đề và nội dung (Tiếng Việt) không được để trống!" });
     }
 
     try {
@@ -68,8 +72,14 @@ exports.updateArticle = async (req, res) => {
             return res.status(404).json({ message: "Không tìm thấy bài viết để cập nhật!" });
         }
 
-        const query = 'UPDATE articles SET title = ?, content = ? WHERE id = ?';
-        await db.query(query, [title, content, articleId]);
+        const query = 'UPDATE articles SET title = ?, title_en = ?, content = ?, content_en = ? WHERE id = ?';
+        await db.query(query, [
+            title,
+            title_en || null,
+            content,
+            content_en || null,
+            articleId
+        ]);
 
         res.status(200).json({ message: "Cập nhật bài viết thành công!" });
     } catch (error) {
@@ -77,7 +87,7 @@ exports.updateArticle = async (req, res) => {
     }
 };
 
-// 5. Xóa bài viết (Cần quyền Admin)
+// 5. Xóa bài viết
 exports.deleteArticle = async (req, res) => {
     const articleId = req.params.id;
 
@@ -94,17 +104,16 @@ exports.deleteArticle = async (req, res) => {
         res.status(500).json({ message: "Lỗi server khi xóa bài viết", error: error.message });
     }
 };
-// Ẩn/Hiện bài viết
+
+// 6. Ẩn/Hiện bài viết 
 exports.toggleVisibility = async (req, res) => {
     const { id } = req.params;
     try {
-        // Lấy trạng thái hiện tại
         const [articles] = await db.query('SELECT is_visible FROM articles WHERE id = ?', [id]);
         if (articles.length === 0) {
             return res.status(404).json({ message: "Không tìm thấy bài viết!" });
         }
 
-        // Đảo ngược trạng thái (Đang 1 thành 0, đang 0 thành 1)
         const newStatus = !articles[0].is_visible;
 
         await db.query('UPDATE articles SET is_visible = ? WHERE id = ?', [newStatus, id]);
