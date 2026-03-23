@@ -176,6 +176,8 @@ import "aos/dist/aos.css";
 import Footer1 from "../Footer1";
 import TinTuc from "../home/TinTuc";
 import bgpic from "../gioiThieu/image/bgpic.jpg";
+import { useLanguage } from "../context/LanguageContext"; // Đường dẫn tới context của bạn
+import { content as languageData } from "../data/language";
 
 // Import hình ảnh
 import qhxdbd1 from "./image/QHXD_Binh_Duong_1.webp";
@@ -199,7 +201,7 @@ import qhxdbt2 from "./image/BinhThuan2.jpg";
 import qhxdbt3 from "./image/BinhThuan3.jpg";
 import qhxdbt4 from "./image/BinhThuan4.jpg";
 
-const AppScreenshot = ({ src, alt, onOpen }) => (
+const AppScreenshot = ({ src, alt, onOpen, label }) => (
   <div
     onClick={() => onOpen(src)}
     className="relative group cursor-pointer overflow-hidden rounded-2xl border-4 border-slate-800 shadow-xl transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl"
@@ -207,13 +209,16 @@ const AppScreenshot = ({ src, alt, onOpen }) => (
     <img src={src} alt={alt} className="w-full h-auto object-cover" />
     <div className="absolute inset-0 bg-blue-600/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
       <span className="text-white font-bold bg-blue-600/90 backdrop-blur-sm px-4 py-2 rounded-full text-xs shadow-lg">
-        Xem chi tiết
+        {/* Xem chi tiết */}
+        {label}
       </span>
     </div>
   </div>
 );
 
 const QLQHXayDung = () => {
+  const { lang } = useLanguage();
+  const t = languageData[lang]?.planning || {};
   const [currentIndex, setCurrentIndex] = useState(null);
   const [scale, setScale] = useState(1);
   const [position, setPosition] = useState({ x: 0, y: 0 });
@@ -345,12 +350,14 @@ const QLQHXayDung = () => {
           data-aos="fade-down"
         >
           <h1 className="text-4xl md:text-6xl font-black text-white mb-6 uppercase tracking-tight">
-            QUẢN LÝ QUY HOẠCH XÂY DỰNG
+            {/* QUẢN LÝ QUY HOẠCH XÂY DỰNG */}
+            {t.hero_title}
           </h1>
           <div className="h-1.5 w-32 bg-lime-500 mx-auto mb-8 rounded-full" />
           <p className="text-slate-200 text-lg md:text-xl max-w-3xl mx-auto italic font-light leading-relaxed">
-            "Số hóa không gian - Kiến tạo tương lai đô thị bền vững bằng dữ liệu
-            đa chiều."
+            {/* "Số hóa không gian - Kiến tạo tương lai đô thị bền vững bằng dữ liệu
+            đa chiều." */}
+            {t.hero_sub}
           </p>
         </div>
       </section>
@@ -360,12 +367,14 @@ const QLQHXayDung = () => {
         <div className="container mx-auto px-6 lg:px-32">
           <div className="max-w-4xl mx-auto text-center" data-aos="fade-up">
             <p className="text-2xl text-slate-700 leading-relaxed font-medium mb-6">
-              Vượt qua giới hạn của bản vẽ 2D rời rạc.
+              {/* Vượt qua giới hạn của bản vẽ 2D rời rạc. */}
+              {t.intro_main}
             </p>
             <p className="text-lg text-slate-500 leading-relaxed">
-              GIS khẳng định vị thế là giải pháp đột phá, giúp các nhà quản lý
+              {/* GIS khẳng định vị thế là giải pháp đột phá, giúp các nhà quản lý
               "nhìn thấu" đô thị dưới góc độ dữ liệu không gian đa chiều, từ đó
-              tối ưu hóa mọi nguồn lực xây dựng.
+              tối ưu hóa mọi nguồn lực xây dựng. */}
+              {t.intro_sub}
             </p>
           </div>
         </div>
@@ -378,9 +387,10 @@ const QLQHXayDung = () => {
             className="text-3xl md:text-5xl font-bold text-center mb-16"
             data-aos="fade-down"
           >
-            Quy Trình Vận Hành Thông Minh
+            {/* Quy Trình Vận Hành Thông Minh */}
+            {t.workflow_title}
           </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {/* <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
               {
                 t: "Số hóa & Đồng bộ",
@@ -414,6 +424,24 @@ const QLQHXayDung = () => {
                 </p>
               </div>
             ))}
+          </div> */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {t.workflow_steps.map((step, i) => (
+              <div
+                key={i}
+                className="p-8 bg-lime-800/50 rounded-2xl border border-lime-700 hover:bg-lime-800 transition-all"
+                data-aos="flip-right"
+                data-aos-delay={i * 150}
+              >
+                <div className="text-lime-400 font-black text-4xl mb-4">
+                  0{i + 1}
+                </div>
+                <h4 className="text-xl font-bold mb-3">{step.t}</h4>
+                <p className="text-lime-100/80 text-sm leading-relaxed">
+                  {step.d}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -424,7 +452,8 @@ const QLQHXayDung = () => {
           className="text-4xl font-bold text-slate-800 mb-16 text-center"
           data-aos="fade-up"
         >
-          Sản phẩm tiêu biểu
+          {/* Sản phẩm tiêu biểu */}
+          {t.products_title}
         </h2>
 
         {/* BÌNH DƯƠNG APP */}
@@ -432,11 +461,11 @@ const QLQHXayDung = () => {
           <div className="flex flex-col lg:flex-row justify-between items-end mb-10 gap-6">
             <div data-aos="fade-right">
               <h3 className="text-3xl font-bold text-slate-800">
-                Quy hoạch xây dựng Bình Dương
+                {/* Quy hoạch xây dựng Bình Dương */}
+                {t.provinces.binh_duong.name}
               </h3>
               <p className="text-slate-500 mt-2 italic">
-                Giải pháp tra cứu quy hoạch trực tuyến cho người dân và doanh
-                nghiệp.
+                {t.provinces.binh_duong.desc}
               </p>
             </div>
             <a
@@ -445,7 +474,8 @@ const QLQHXayDung = () => {
               rel="noreferrer"
               className="px-6 py-3 bg-blue-600 text-white rounded-full font-bold shadow-lg hover:bg-blue-700 transition-all flex items-center gap-2"
             >
-              Tải ứng dụng <i className="fab fa-google-play"></i>
+              {/* Tải ứng dụng <i className="fab fa-google-play"></i> */}
+              {t.download_app} <i className="fab fa-google-play"></i>
             </a>
           </div>
           <div
@@ -456,21 +486,25 @@ const QLQHXayDung = () => {
               src={qhxdbd2}
               alt="Bình Dương 1"
               onOpen={openModal}
+              label={t.view_detail}
             />
             <AppScreenshot
               src={qhxdbd3}
               alt="Bình Dương 2"
               onOpen={openModal}
+              label={t.view_detail}
             />
             <AppScreenshot
               src={qhxdbd1}
               alt="Bình Dương 3"
               onOpen={openModal}
+              label={t.view_detail}
             />
             <AppScreenshot
               src={qhxdbd4}
               alt="Bình Dương 4"
               onOpen={openModal}
+              label={t.view_detail}
             />
           </div>
         </div>
@@ -480,10 +514,12 @@ const QLQHXayDung = () => {
           <div className="flex flex-col lg:flex-row justify-between items-end mb-10 gap-6">
             <div data-aos="fade-right">
               <h3 className="text-3xl font-bold text-slate-800">
-                Quy hoạch xây dựng Bình Phước
+                {/* Quy hoạch xây dựng Bình Phước */}
+                {t.provinces.binh_phuoc.name}
               </h3>
               <p className="text-slate-500 mt-2 italic">
-                Công khai minh bạch dữ liệu không gian xây dựng tỉnh Bình Phước.
+                {/* Công khai minh bạch dữ liệu không gian xây dựng tỉnh Bình Phước. */}
+                {t.provinces.binh_phuoc.desc}
               </p>
             </div>
             <a
@@ -492,7 +528,8 @@ const QLQHXayDung = () => {
               rel="noreferrer"
               className="px-6 py-3 bg-slate-800 text-white rounded-full font-bold shadow-lg hover:bg-slate-900 transition-all flex items-center gap-2"
             >
-              Tải ứng dụng <i className="fab fa-google-play"></i>
+              {/* Tải ứng dụng <i className="fab fa-google-play"></i> */}
+              {t.download_app} <i className="fab fa-google-play"></i>
             </a>
           </div>
           <div
@@ -503,21 +540,25 @@ const QLQHXayDung = () => {
               src={qhxdbp1}
               alt="Bình Phước 1"
               onOpen={openModal}
+              label={t.view_detail}
             />
             <AppScreenshot
               src={qhxdbp3}
               alt="Bình Phước 2"
               onOpen={openModal}
+              label={t.view_detail}
             />
             <AppScreenshot
               src={qhxdbp2}
               alt="Bình Phước 3"
               onOpen={openModal}
+              label={t.view_detail}
             />
             <AppScreenshot
               src={qhxdbp4}
               alt="Bình Phước 4"
               onOpen={openModal}
+              label={t.view_detail}
             />
           </div>
         </div>
@@ -527,10 +568,12 @@ const QLQHXayDung = () => {
           <div className="flex flex-col lg:flex-row justify-between items-end mb-10 gap-6">
             <div data-aos="fade-right">
               <h3 className="text-3xl font-bold text-slate-800">
-                Quy hoạch xây dựng Đồng Tháp
+                {/* Quy hoạch xây dựng Đồng Tháp */}
+                {t.provinces.dong_thap.name}
               </h3>
               <p className="text-slate-500 mt-2 italic">
-                Hệ thống quản lý và tra cứu quy hoạch tỉnh Đồng Tháp.
+                {/* Hệ thống quản lý và tra cứu quy hoạch tỉnh Đồng Tháp. */}
+                {t.provinces.dong_thap.desc}
               </p>
             </div>
             <a
@@ -539,17 +582,38 @@ const QLQHXayDung = () => {
               rel="noreferrer"
               className="px-6 py-3 bg-emerald-600 text-white rounded-full font-bold shadow-lg hover:bg-emerald-700 transition-all flex items-center gap-2"
             >
-              Tải ứng dụng <i className="fab fa-google-play"></i>
+              {/* Tải ứng dụng <i className="fab fa-google-play"></i> */}
+              {t.download_app} <i className="fab fa-google-play"></i>
             </a>
           </div>
           <div
             className="grid grid-cols-2 lg:grid-cols-4 gap-6"
             data-aos="fade-up"
           >
-            <AppScreenshot src={qhxddt1} alt="Đồng Tháp 1" onOpen={openModal} />
-            <AppScreenshot src={qhxddt2} alt="Đồng Tháp 2" onOpen={openModal} />
-            <AppScreenshot src={qhxddt3} alt="Đồng Tháp 3" onOpen={openModal} />
-            <AppScreenshot src={qhxddt4} alt="Đồng Tháp 4" onOpen={openModal} />
+            <AppScreenshot
+              src={qhxddt1}
+              alt="Đồng Tháp 1"
+              onOpen={openModal}
+              label={t.view_detail}
+            />
+            <AppScreenshot
+              src={qhxddt2}
+              alt="Đồng Tháp 2"
+              onOpen={openModal}
+              label={t.view_detail}
+            />
+            <AppScreenshot
+              src={qhxddt3}
+              alt="Đồng Tháp 3"
+              onOpen={openModal}
+              label={t.view_detail}
+            />
+            <AppScreenshot
+              src={qhxddt4}
+              alt="Đồng Tháp 4"
+              onOpen={openModal}
+              label={t.view_detail}
+            />
           </div>
         </div>
 
@@ -558,10 +622,12 @@ const QLQHXayDung = () => {
           <div className="flex flex-col lg:flex-row justify-between items-end mb-10 gap-6">
             <div data-aos="fade-right">
               <h3 className="text-3xl font-bold text-slate-800">
-                Quy hoạch xây dựng Phù Cát
+                {/* Quy hoạch xây dựng Phù Cát */}
+                {t.provinces.phu_cat.name}
               </h3>
               <p className="text-slate-500 mt-2 italic">
-                Quản lý không gian đô thị huyện Phù Cát, Bình Định.
+                {/* Quản lý không gian đô thị huyện Phù Cát, Bình Định. */}
+                {t.provinces.phu_cat.desc}
               </p>
             </div>
             <a
@@ -570,17 +636,38 @@ const QLQHXayDung = () => {
               rel="noreferrer"
               className="px-6 py-3 bg-orange-600 text-white rounded-full font-bold shadow-lg hover:bg-orange-700 transition-all flex items-center gap-2"
             >
-              Tải ứng dụng <i className="fab fa-google-play"></i>
+              {/* Tải ứng dụng <i className="fab fa-google-play"></i> */}
+              {t.download_app} <i className="fab fa-google-play"></i>
             </a>
           </div>
           <div
             className="grid grid-cols-2 lg:grid-cols-4 gap-6"
             data-aos="fade-up"
           >
-            <AppScreenshot src={qhxdpc1} alt="Phù Cát 1" onOpen={openModal} />
-            <AppScreenshot src={qhxdpc2} alt="Phù Cát 2" onOpen={openModal} />
-            <AppScreenshot src={qhxdpc3} alt="Phù Cát 3" onOpen={openModal} />
-            <AppScreenshot src={qhxdpc4} alt="Phù Cát 4" onOpen={openModal} />
+            <AppScreenshot
+              src={qhxdpc1}
+              alt="Phù Cát 1"
+              onOpen={openModal}
+              label={t.view_detail}
+            />
+            <AppScreenshot
+              src={qhxdpc2}
+              alt="Phù Cát 2"
+              onOpen={openModal}
+              label={t.view_detail}
+            />
+            <AppScreenshot
+              src={qhxdpc3}
+              alt="Phù Cát 3"
+              onOpen={openModal}
+              label={t.view_detail}
+            />
+            <AppScreenshot
+              src={qhxdpc4}
+              alt="Phù Cát 4"
+              onOpen={openModal}
+              label={t.view_detail}
+            />
           </div>
         </div>
 
@@ -589,10 +676,12 @@ const QLQHXayDung = () => {
           <div className="flex flex-col lg:flex-row justify-between items-end mb-10 gap-6">
             <div data-aos="fade-right">
               <h3 className="text-3xl font-bold text-slate-800">
-                Quy hoạch xây dựng Bình Thuận
+                {/* Quy hoạch xây dựng Bình Thuận */}
+                {t.provinces.binh_thuan.name}
               </h3>
               <p className="text-slate-500 mt-2 italic">
-                Ứng dụng GIS trong quản lý xây dựng tỉnh Bình Thuận.
+                {/* Ứng dụng GIS trong quản lý xây dựng tỉnh Bình Thuận. */}
+                {t.provinces.binh_thuan.desc}
               </p>
             </div>
             <a
@@ -601,7 +690,8 @@ const QLQHXayDung = () => {
               rel="noreferrer"
               className="px-6 py-3 bg-cyan-600 text-white rounded-full font-bold shadow-lg hover:bg-cyan-700 transition-all flex items-center gap-2"
             >
-              Tải ứng dụng <i className="fab fa-google-play"></i>
+              {/* Tải ứng dụng <i className="fab fa-google-play"></i> */}
+              {t.download_app} <i className="fab fa-google-play"></i>
             </a>
           </div>
           <div
@@ -612,21 +702,25 @@ const QLQHXayDung = () => {
               src={qhxdbt1}
               alt="Bình Thuận 1"
               onOpen={openModal}
+              label={t.view_detail}
             />
             <AppScreenshot
               src={qhxdbt2}
               alt="Bình Thuận 2"
               onOpen={openModal}
+              label={t.view_detail}
             />
             <AppScreenshot
               src={qhxdbt3}
               alt="Bình Thuận 3"
               onOpen={openModal}
+              label={t.view_detail}
             />
             <AppScreenshot
               src={qhxdbt4}
               alt="Bình Thuận 4"
               onOpen={openModal}
+              label={t.view_detail}
             />
           </div>
         </div>
@@ -636,9 +730,10 @@ const QLQHXayDung = () => {
       <section className="py-20 bg-slate-50">
         <div className="container mx-auto px-6 lg:px-20">
           <h2 className="text-3xl font-bold mb-12 text-slate-800 border-b-2 border-lime-500 pb-4 inline-block">
-            Tại sao GIS là lựa chọn bắt buộc?
+            {/* Tại sao GIS là lựa chọn bắt buộc? */}
+            {t.why_title}
           </h2>
-          <div className="grid md:grid-cols-2 gap-10">
+          {/* <div className="grid md:grid-cols-2 gap-10">
             {[
               {
                 t: "Chính xác tuyệt đối",
@@ -657,6 +752,23 @@ const QLQHXayDung = () => {
                 d: "Người dân dễ dàng tiếp cận, giám sát, tạo đồng thuận cao.",
               },
             ].map((item, i) => (
+              <div
+                key={i}
+                className="flex gap-4 p-4 hover:bg-white rounded-xl transition-all"
+                data-aos="fade-up"
+              >
+                <div className="mt-1 flex-shrink-0 text-lime-600 font-bold">
+                  ✓
+                </div>
+                <div>
+                  <h4 className="font-bold text-slate-800 text-lg">{item.t}</h4>
+                  <p className="text-slate-600">{item.d}</p>
+                </div>
+              </div>
+            ))}
+          </div> */}
+          <div className="grid md:grid-cols-2 gap-10">
+            {t.why_items.map((item, i) => (
               <div
                 key={i}
                 className="flex gap-4 p-4 hover:bg-white rounded-xl transition-all"
@@ -740,11 +852,13 @@ const QLQHXayDung = () => {
               </div>
               {scale === 1 ? (
                 <p className="text-white/30 text-[10px] animate-pulse italic">
-                  Cuộn chuột để phóng to bản đồ
+                  {/* Cuộn chuột để phóng to bản đồ */}
+                  {t.modal.zoom_hint}
                 </p>
               ) : (
                 <p className="text-lime-400 text-[10px] font-bold">
-                  Đang Zoom {scale.toFixed(1)}x - Nhấp giữ chuột để kéo ảnh
+                  {/* Đang Zoom {scale.toFixed(1)}x - Nhấp giữ chuột để kéo ảnh */}
+                  {t.modal.dragging.replace("{x}", scale.toFixed(1))}
                 </p>
               )}
             </div>

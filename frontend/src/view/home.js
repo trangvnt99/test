@@ -22,11 +22,12 @@ import VLW from "../image/VLW.png";
 import GENCO3 from "../image/GENCO3.png";
 import EVNHCMC from "../image/EVNHCMC.png";
 import VNPT from "../image/VNPT.png";
-
+//Language
+import { useLanguage } from "../context/LanguageContext";
+import { content } from "../data/language";
 //Icons
 // import ChartSineIcon from "../components/ChartSineIcon"; // Kiểm tra lại đường dẫn file
 // import NewsIcon from "../components/NewsIcon";
-
 // const StatItem = ({ finalNumber, label, iconClass, suffix = "" }) => {
 //   const [count, setCount] = useState(0);
 
@@ -114,6 +115,8 @@ const StatItem = ({ finalNumber, label, iconClass, icon, suffix = "" }) => {
 };
 
 const Home = () => {
+  const { lang } = useLanguage();
+  const t = content[lang];
   const socialLinks = [
     {
       icon: facebook,
@@ -238,7 +241,8 @@ const Home = () => {
         <div className="container mx-auto px-6 relative z-10">
           <div className="max-w-6xl" data-aos="fade-up">
             <p className="text-blue-400 font-black mb-6 tracking-[0.2em] uppercase text-xl md:text-xl">
-              TRUNG TÂM CÔNG NGHỆ THÔNG TIN ĐỊA LÝ DITAGIS
+              {t.hero.sub}
+              {/* TRUNG TÂM CÔNG NGHỆ THÔNG TIN ĐỊA LÝ DITAGIS */}
             </p>
 
             <h1 className="text-4xl md:text-6xl lg:text-5xl font-black text-white leading-tight mb-8 whitespace-nowrap">
@@ -246,15 +250,17 @@ const Home = () => {
             </h1>
 
             <p className="max-w-2xl text-base text-slate-300 mb-10 leading-relaxed">
-              Đề xuất các giải pháp ứng dụng Hệ thống thông tin địa lý (GIS) và
+              {t.hero.desc1}
+              {/* Đề xuất các giải pháp ứng dụng Hệ thống thông tin địa lý (GIS) và
               công nghệ số trong quản lý đô thị, quy hoạch và hạ tầng. Nền tảng
               cung cấp các sản phẩm, dịch vụ và hoạt động nghiên cứu – đào tạo
-              trong lĩnh vực GIS và đô thị thông minh.
+              trong lĩnh vực GIS và đô thị thông minh. */}
             </p>
             <p className="max-w-2xl text-base text-slate-300 mb-10 leading-relaxed">
-              Thông qua các công nghệ bản đồ số, dữ liệu không gian và phân tích
+              {t.hero.desc2}
+              {/* Thông qua các công nghệ bản đồ số, dữ liệu không gian và phân tích
               thông minh, DITAGIS góp phần hỗ trợ ra quyết định và thúc đẩy
-              chuyển đổi số trong quản lý đô thị và phát triển bền vững.
+              chuyển đổi số trong quản lý đô thị và phát triển bền vững. */}
             </p>
 
             <div className="flex gap-4">
@@ -284,7 +290,8 @@ const Home = () => {
           <div className="bg-white rounded-[2rem] shadow-2xl overflow-hidden flex flex-col lg:flex-row border border-slate-100">
             <div className="lg:w-3/5 p-12 lg:p-16 bg-gradient-to-br from-orange-500 to-orange-600 text-white">
               <h2 className="text-4xl font-black mb-8 border-b border-orange-400 pb-4 italic">
-                THÔNG BÁO CHIÊU SINH
+                {/* THÔNG BÁO CHIÊU SINH */}
+                {t.admissions.title}
               </h2>
               <div className="space-y-6 text-lg">
                 {/* Lớp Cơ Bản */}
@@ -293,7 +300,7 @@ const Home = () => {
                     BASE
                   </div>
                   <p className="leading-tight">
-                    <strong>Lớp ArcGIS Căn bản:</strong> T2 - 4 - 6 (18:00 -
+                    <strong>{t.admissions.basic}</strong> T2 - 4 - 6 (18:00 -
                     20:45)
                   </p>
                 </div>
@@ -304,21 +311,23 @@ const Home = () => {
                     ADV
                   </div>
                   <p className="leading-tight">
-                    <strong>Lớp ArcGIS Nâng cao:</strong> T3 - 5 - 7 (18:00 -
+                    <strong>{t.admissions.adv}</strong> T3 - 5 - 7 (18:00 -
                     20:45)
                   </p>
                 </div>
 
                 <p className="pt-4 italic opacity-80 border-t border-orange-400/30">
-                  * Thời lượng: 10 buổi. Cấp chứng nhận sau 02 tuần hoàn tất
-                  khóa học.
+                  {/* * Thời lượng: 10 buổi. Cấp chứng nhận sau 02 tuần hoàn tất
+                  khóa học. */}
+                  {t.admissions.duration}
                 </p>
               </div>
             </div>
 
             <div className="lg:w-2/5 p-12 flex flex-col items-center justify-center bg-white">
               <div className="text-blue-600 font-bold mb-6 tracking-widest text-xl uppercase">
-                Thời hạn đăng ký còn lại
+                {/* Thời hạn đăng ký còn lại */}
+                {t.admissions.deadline}
               </div>
 
               <div className="flex gap-3 md:gap-4 mb-10 items-start">
@@ -355,7 +364,7 @@ const Home = () => {
                 to="/thongBao/tuyenSinh"
                 className="group relative px-12 py-4 bg-blue-600 text-white font-black text-lg rounded-full overflow-hidden shadow-lg hover:shadow-blue-500/50 transition-all hover:-translate-y-1"
               >
-                <span className="relative z-10">ĐĂNG KÝ NGAY</span>
+                <span className="relative z-10">{t.admissions.btn}</span>
                 <div className="absolute inset-0 bg-slate-900 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
               </Link>
             </div>
@@ -376,18 +385,21 @@ const Home = () => {
           data-aos="zoom-in"
         >
           <h2 className="text-4xl md:text-5xl font-black mb-8">
-            TIÊN PHONG CÔNG NGHỆ GIS
+            {/* TIÊN PHONG CÔNG NGHỆ GIS */}
+            {t.intro.title}
           </h2>
           <p className="max-w-3xl mx-auto text-xl leading-relaxed mb-10 font-light">
-            DITAGIS tự hào là đơn vị tiên phong trong nghiên cứu khoa học và
-            chuyển giao công nghệ Thông tin Địa lý tại Việt Nam với hơn 30 năm
-            hình thành và phát triển.
+            {/* DITAGIS tự hào là đơn vị tiên phong trong nghiên cứu khoa học và
+                chuyển giao công nghệ Thông tin Địa lý tại Việt Nam với hơn 30 năm
+                hình thành và phát triển. */}
+            {t.intro.desc}
           </p>
           <Link
             to="/gioiThieu"
             className="inline-block px-10 py-4 bg-white text-blue-900 font-bold rounded-full hover:bg-blue-400 hover:text-white transition-all shadow-xl"
           >
-            TÌM HIỂU THÊM
+            {/* TÌM HIỂU THÊM */}
+            {t.intro.more}
           </Link>
         </div>
       </section>
@@ -396,7 +408,8 @@ const Home = () => {
       <section className="bg-white py-24">
         <div className="container mx-auto px-6">
           <h3 className="text-4xl font-black text-slate-900 mb-16 text-center italic">
-            GIẢI PHÁP HỆ THỐNG GIS
+            {/* GIẢI PHÁP HỆ THỐNG GIS */}
+            {t.solutions_sec.title}
           </h3>
           <div className="grid lg:grid-cols-2 gap-8">
             <div
@@ -411,15 +424,18 @@ const Home = () => {
               <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent" />
               <div className="absolute bottom-0 p-10">
                 <h4 className="text-4xl font-black text-white mb-4">
-                  DÀNH CHO NHÀ NƯỚC
+                  {/* DÀNH CHO NHÀ NƯỚC */}
+                  {t.solutions_sec.gov}
                 </h4>
                 <p className="text-slate-300 text-lg mb-6 leading-relaxed">
-                  Quản lý quy hoạch, hạ tầng kỹ thuật, giao thông và môi trường
-                  đô thị hiện đại.
+                  {/* Quản lý quy hoạch, hạ tầng kỹ thuật, giao thông và môi trường
+                  đô thị hiện đại. */}
+                  {t.solutions_sec.gov_desc}
                 </p>
                 <div className="flex flex-wrap gap-2 text-xs font-bold uppercase tracking-widest text-blue-400">
-                  <span>#QUYHOACH</span> <span>#HATING</span>{" "}
-                  <span>#CANHBAONGAP</span>
+                  {t.solutions_sec.gov_tags.map((tag, index) => (
+                    <span key={index}>{tag}</span>
+                  ))}
                 </div>
               </div>
             </div>
@@ -436,14 +452,18 @@ const Home = () => {
               <div className="absolute inset-0 bg-gradient-to-t from-blue-900 via-blue-900/40 to-transparent" />
               <div className="absolute bottom-0 p-10">
                 <h4 className="text-4xl font-black text-white mb-4">
-                  DÀNH CHO DOANH NGHIỆP
+                  {/* DÀNH CHO DOANH NGHIỆP */}
+                  {t.solutions_sec.biz}
                 </h4>
                 <p className="text-slate-300 text-lg mb-6 leading-relaxed">
-                  Tối ưu hóa tài sản, theo dõi mạng lưới cấp thoát nước, điện
-                  năng và viễn thông.
+                  {/* Tối ưu hóa tài sản, theo dõi mạng lưới cấp thoát nước, điện
+                  năng và viễn thông. */}
+                  {t.solutions_sec.biz_desc}
                 </p>
                 <div className="flex flex-wrap gap-2 text-xs font-bold uppercase tracking-widest text-orange-400">
-                  <span>#CAPNUOC</span> <span>#DIENLUC</span> <span>#IOT</span>
+                  {t.solutions_sec.biz_tags.map((tag, index) => (
+                    <span key={index}>{tag}</span>
+                  ))}
                 </div>
               </div>
             </div>
@@ -489,10 +509,12 @@ const Home = () => {
         <div className="container mx-auto px-6">
           <div className="text-center mb-16" data-aos="fade-up">
             <h3 className="text-4xl font-black mb-4 italic uppercase tracking-tighter text-slate-900">
-              ĐỐI TÁC CHIẾN LƯỢC
+              {/* ĐỐI TÁC CHIẾN LƯỢC */}
+              {t.partners.title}
             </h3>
             <p className="text-slate-500 italic max-w-2xl mx-auto">
-              DITAGIS vinh dự được đồng hành cùng các tập đoàn hàng đầu.
+              {/* DITAGIS vinh dự được đồng hành cùng các tập đoàn hàng đầu. */}
+              {t.partners.desc}
             </p>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 lg:gap-8">

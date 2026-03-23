@@ -1,9 +1,26 @@
 import React from "react";
 import footeri from "./image/footer.png";
 import logo from "./image/logo.png";
+import { useLanguage } from "./context/LanguageContext";
+import { content as languageData } from "./data/language";
+
+// 1. Tạo hàm bọc (HOC) để lấy dữ liệu từ Context truyền vào Class
+const withLanguage = (Component) => {
+  return (props) => {
+    const language = useLanguage();
+    return <Component {...props} language={language} />;
+  };
+};
 
 class Footer1 extends React.Component {
   render() {
+    // 2. Lấy lang và t từ props (do hàm withLanguage truyền vào)
+    const { lang } = this.props.language;
+    const t = languageData[lang].footer;
+
+    // Kiểm tra dữ liệu để tránh lỗi crash trang
+    if (!t) return null;
+
     return (
       <footer>
         <div className="relative bg-blend-darken h-1/2 w-full">
@@ -22,28 +39,26 @@ class Footer1 extends React.Component {
                 />
                 <div className="md:ml-0 text-justify leading-8">
                   <b>
-                    Trung tâm Công nghệ Thông tin Địa lý (Center for Developing
-                    Information Technology And Geographic Information System -
-                    DITAGIS)
+                    {lang === "vi"
+                      ? "Trung tâm Công nghệ Thông tin Địa lý (Center for Developing Information Technology And Geographic Information System - DITAGIS) "
+                      : "Center for Developing Information Technology And Geographic Information System (DITAGIS) "}
                   </b>
-                  là Trung tâm khoa học - công nghệ trực thuộc và chịu sự quản
-                  lý của Trường Đại học Bách Khoa TP.HCM, được thành lập theo
-                  Quyết định số 3029/GD&ĐT ngày 20/10/1994 của Bộ Giáo dục và
-                  Đào tạo.
+                  {t.description}
                 </div>
               </div>
               <div className="fright leading-loose ml-5">
-                <b>Địa chỉ</b>
+                <b>{t.address_label}</b>
                 <br />
-                268, Lý Thường Kiệt, Quận 10, Tp.HCM
+                {t.address_detail}
                 <br />
-                <b>Điện thoại</b>
+                <b>{t.phone_label}</b>
                 <br />
-                (+84.8).38642768 - Fax : (+84.8).38686548
+                {/* (+84.8).38642768 - Fax : (+84.8).38686548 */}
+                (+84.8).985769686
                 <br />
-                <b>Email</b>
+                <b>{t.email_label}</b>
                 <br />
-                ditagis@hcmut.edu.vn
+                mtho1806@gmail.com
               </div>
             </div>
           </div>
@@ -56,4 +71,6 @@ class Footer1 extends React.Component {
     );
   }
 }
-export default Footer1;
+
+// 3. Quan trọng: Xuất component đã được bọc
+export default withLanguage(Footer1);
