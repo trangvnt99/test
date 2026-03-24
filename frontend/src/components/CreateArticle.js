@@ -32,7 +32,7 @@ export default function CreateArticle() {
                 formData.append("image", file);
                 try {
                     const token = localStorage.getItem("token");
-                    const res = await fetch("http://localhost:5000/api/upload", {
+                    const res = await fetch("https://ditagis.onrender.com/api/upload", {
                         method: "POST",
                         headers: { "Authorization": `Bearer ${token}` },
                         body: formData,
@@ -92,7 +92,7 @@ export default function CreateArticle() {
         setIsSubmitting(true);
         try {
             const token = localStorage.getItem("token");
-            const res = await fetch("http://localhost:5000/api/articles", {
+            const res = await fetch("https://ditagis.onrender.com/api/articles", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

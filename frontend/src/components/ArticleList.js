@@ -17,7 +17,7 @@ export default function ArticleList() {
   useEffect(() => {
     async function fetchArticles() {
       try {
-        const res = await fetch("http://localhost:5000/api/articles");
+        const res = await fetch("https://ditagis.onrender.com/api/articles");
         const data = await res.json();
         setArticles(Array.isArray(data) ? data : []);
       } catch (err) {

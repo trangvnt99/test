@@ -26,7 +26,7 @@ export default function EditArticle() {
     useEffect(() => {
         const fetchArticleDetail = async () => {
             try {
-                const res = await fetch(`http://localhost:5000/api/articles/${id}`);
+                const res = await fetch(`https://ditagis.onrender.com/api/articles/${id}`);
                 const data = await res.json();
 
                 if (res.ok) {
@@ -63,7 +63,7 @@ export default function EditArticle() {
 
                 try {
                     const token = localStorage.getItem("token");
-                    const res = await fetch("http://localhost:5000/api/upload", {
+                    const res = await fetch("https://ditagis.onrender.com/api/upload", {
                         method: "POST",
                         headers: { "Authorization": `Bearer ${token}` },
                         body: formData,
@@ -128,7 +128,7 @@ export default function EditArticle() {
 
         try {
             const token = localStorage.getItem("token");
-            const res = await fetch(`http://localhost:5000/api/articles/${id}`, {
+            const res = await fetch(`https://ditagis.onrender.com/api/articles/${id}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",

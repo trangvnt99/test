@@ -12,7 +12,7 @@ export default function ArticleDetail() {
     useEffect(() => {
         const fetchArticle = async () => {
             try {
-                const res = await fetch(`http://localhost:5000/api/articles/${id}`);
+                const res = await fetch(`https://ditagis.onrender.com/api/articles/${id}`);
                 const data = await res.json();
 
                 if (res.ok) {
