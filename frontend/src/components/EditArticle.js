@@ -1,17 +1,19 @@
-import { useState, useEffect, useRef, useMemo } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import ReactQuill from "react-quill";
+import { useState, useRef, useMemo, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import ReactQuill, { Quill } from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import BlotFormatter from "quill-blot-formatter";
+
+Quill.register("modules/blotFormatter", BlotFormatter);
+
 
 export default function EditArticle() {
     const { id } = useParams();
     const navigate = useNavigate();
 
-    // State Tiếng Việt
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
 
-    // State Tiếng Anh
     const [titleEn, setTitleEn] = useState("");
     const [contentEn, setContentEn] = useState("");
 
@@ -21,7 +23,6 @@ export default function EditArticle() {
     const quillRefVi = useRef();
     const quillRefEn = useRef();
 
-    // 1. GỌI API LẤY DỮ LIỆU BÀI VIẾT CŨ
     useEffect(() => {
         const fetchArticleDetail = async () => {
             try {
@@ -29,10 +30,8 @@ export default function EditArticle() {
                 const data = await res.json();
 
                 if (res.ok) {
-                    // Đổ dữ liệu vào Form
                     setTitle(data.title || "");
                     setContent(data.content || "");
-                    // Đổ dữ liệu tiếng Anh (nếu có, không có thì set chuỗi rỗng)
                     setTitleEn(data.title_en || "");
                     setContentEn(data.content_en || "");
                 } else {
@@ -48,7 +47,6 @@ export default function EditArticle() {
         fetchArticleDetail();
     }, [id]);
 
-    // Hàm xử lý upload ảnh custom cho React-Quill (Giống bên Create)
     const createCustomImageHandler = (ref) => {
         return () => {
             const input = document.createElement("input");
@@ -94,11 +92,13 @@ export default function EditArticle() {
                 [{ header: [1, 2, 3, false] }],
                 ["bold", "italic", "underline", "strike"],
                 [{ list: "ordered" }, { list: "bullet" }],
+                [{ align: [] }],
                 ["link", "image"],
                 ["clean"],
             ],
             handlers: { image: createCustomImageHandler(quillRefVi) },
         },
+        blotFormatter: {}
     }), []);
 
     const modulesEn = useMemo(() => ({
@@ -107,14 +107,15 @@ export default function EditArticle() {
                 [{ header: [1, 2, 3, false] }],
                 ["bold", "italic", "underline", "strike"],
                 [{ list: "ordered" }, { list: "bullet" }],
+                [{ align: [] }],
                 ["link", "image"],
                 ["clean"],
             ],
             handlers: { image: createCustomImageHandler(quillRefEn) },
         },
+        blotFormatter: {}
     }), []);
 
-    // 2. HÀM CẬP NHẬT BÀI VIẾT (PUT)
     const handleUpdate = async (e) => {
         e.preventDefault();
 
@@ -133,7 +134,6 @@ export default function EditArticle() {
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${token}`
                 },
-                // Đẩy cả 4 trường dữ liệu lên
                 body: JSON.stringify({
                     title,
                     content,
@@ -171,7 +171,7 @@ export default function EditArticle() {
                     </button>
                     <div>
                         <h2 className="text-2xl font-black tracking-tight text-slate-800">Chỉnh sửa bài viết #{id}</h2>
-                        <p className="text-sm text-slate-500 font-medium">Cập nhật nội dung song ngữ</p>
+                        <p className="text-sm text-slate-500 font-medium">Cập nhật nội dung song ngữ & Kích thước ảnh</p>
                     </div>
                 </div>
 
@@ -198,7 +198,7 @@ export default function EditArticle() {
                         <div className="mb-8">
                             <label className="block text-sm font-bold text-slate-700 mb-2 uppercase tracking-wide">Nội dung (VI)</label>
                             <div className="bg-white rounded-xl overflow-hidden border border-slate-200 focus-within:border-blue-500 focus-within:ring-4 focus-within:ring-blue-500/10 transition-all">
-                                <ReactQuill ref={quillRefVi} theme="snow" value={content} onChange={setContent} modules={modulesVi} className="h-96" />
+                                <ReactQuill ref={quillRefVi} theme="snow" value={content} onChange={setContent} modules={modulesVi} />
                             </div>
                         </div>
                     </div>
@@ -225,7 +225,7 @@ export default function EditArticle() {
                         <div className="mb-8">
                             <label className="block text-sm font-bold text-slate-700 mb-2 uppercase tracking-wide">Nội dung (EN)</label>
                             <div className="bg-white rounded-xl overflow-hidden border border-slate-200 focus-within:border-emerald-500 focus-within:ring-4 focus-within:ring-emerald-500/10 transition-all">
-                                <ReactQuill ref={quillRefEn} theme="snow" value={contentEn} onChange={setContentEn} modules={modulesEn} className="h-96" />
+                                <ReactQuill ref={quillRefEn} theme="snow" value={contentEn} onChange={setContentEn} modules={modulesEn} />
                             </div>
                         </div>
                     </div>
@@ -252,8 +252,8 @@ export default function EditArticle() {
 
             <style>{`
                 .ql-toolbar.ql-snow { border: none; border-bottom: 1px solid #e2e8f0; padding: 12px 16px; background-color: #f8fafc; }
-                .ql-container.ql-snow { border: none; font-family: inherit; font-size: 1rem; }
-                .ql-editor { min-height: 24rem; padding: 1.5rem; }
+                .ql-container.ql-snow { border: none; font-family: inherit; font-size: 1rem; height: 500px; }
+                .ql-editor { padding: 1.5rem; }
             `}</style>
         </div>
     );

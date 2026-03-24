@@ -37,7 +37,7 @@ export default function ArticleDetail() {
     return (
         <div className="min-h-screen bg-slate-50 py-10 font-sans text-slate-900">
             <div className="max-w-3xl mx-auto bg-white p-8 md:p-12 rounded-[2rem] shadow-sm border border-slate-200">
-                <Link to="/admin/dashboard" className="inline-flex items-center text-blue-600 hover:text-blue-800 font-bold mb-8 transition-colors">
+                <Link to="/thongBao" className="inline-flex items-center text-blue-600 hover:text-blue-800 font-bold mb-8 transition-colors">
                     <i className="bi bi-arrow-left me-2"></i> Quay lại danh sách
                 </Link>
 

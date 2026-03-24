@@ -9,10 +9,12 @@ const db = mysql.createPool({
     waitForConnections: true,
     connectionLimit: 10,
     port: process.env.DB_PORT,
-    // THÊM ĐOẠN NÀY VÀO ĐỂ AIVEN CHO PHÉP KẾT NỐI
     ssl: {
         rejectUnauthorized: false
-    }
+    },
+    enableKeepAlive: true,
+    keepAliveInitialDelay: 10000,
+    queueLimit: 0
 });
 
 module.exports = db.promise();
