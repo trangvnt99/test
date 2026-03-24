@@ -2,9 +2,9 @@ import { useState, useRef, useMemo, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import ReactQuill, { Quill } from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import BlotFormatter from "quill-blot-formatter";
+// import BlotFormatter from "quill-blot-formatter";
 
-Quill.register("modules/blotFormatter", BlotFormatter);
+// Quill.register("modules/blotFormatter", BlotFormatter);
 
 
 export default function CreateArticle() {
@@ -32,7 +32,7 @@ export default function CreateArticle() {
                 formData.append("image", file);
                 try {
                     const token = localStorage.getItem("token");
-                    const res = await fetch("http://localhost:5000/api/upload", {
+                    const res = await fetch("https://ditagis.onrender.com/api/upload", {
                         method: "POST",
                         headers: { "Authorization": `Bearer ${token}` },
                         body: formData,
@@ -65,7 +65,7 @@ export default function CreateArticle() {
             ],
             handlers: { image: createCustomImageHandler(quillRefVi) },
         },
-        blotFormatter: {}
+        // blotFormatter: {}
     }), []);
 
     const modulesEn = useMemo(() => ({
@@ -80,7 +80,7 @@ export default function CreateArticle() {
             ],
             handlers: { image: createCustomImageHandler(quillRefEn) },
         },
-        blotFormatter: {}
+        // blotFormatter: {}
     }), []);
 
     const handleSubmit = async (e) => {
@@ -92,7 +92,7 @@ export default function CreateArticle() {
         setIsSubmitting(true);
         try {
             const token = localStorage.getItem("token");
-            const res = await fetch("http://localhost:5000/api/articles", {
+            const res = await fetch("https://ditagis.onrender.com/api/articles", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

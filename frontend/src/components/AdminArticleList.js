@@ -18,7 +18,7 @@ export default function AdminArticleList() {
 
     const fetchArticles = async () => {
         try {
-            const res = await fetch("http://localhost:5000/api/articles");
+            const res = await fetch("https://ditagis.onrender.com/api/articles");
             const data = await res.json();
             setArticles(Array.isArray(data) ? data : []);
         } catch (error) {
@@ -35,7 +35,7 @@ export default function AdminArticleList() {
 
         try {
             const token = localStorage.getItem("token");
-            const res = await fetch(`http://localhost:5000/api/articles/${id}`, {
+            const res = await fetch(`https://ditagis.onrender.com/api/articles/${id}`, {
                 method: "DELETE",
                 headers: { "Authorization": `Bearer ${token}` }
             });
@@ -55,7 +55,7 @@ export default function AdminArticleList() {
     const handleToggleVisibility = async (id, currentStatus) => {
         try {
             const token = localStorage.getItem("token");
-            const res = await fetch(`http://localhost:5000/api/articles/${id}/visibility`, {
+            const res = await fetch(`https://ditagis.onrender.com/api/articles/${id}/visibility`, {
                 method: "PATCH",
                 headers: { "Authorization": `Bearer ${token}` }
             });
