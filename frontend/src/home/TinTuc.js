@@ -10,7 +10,7 @@ const TinTuc = () => {
   useEffect(() => {
     const fetchLatestArticles = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/articles");
+        const res = await fetch("https://ditagis.onrender.com/api/articles");
         const data = await res.json();
 
         if (Array.isArray(data)) {
