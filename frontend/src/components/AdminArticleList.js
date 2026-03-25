@@ -97,7 +97,7 @@ export default function AdminArticleList() {
 
   return (
     // <div className="w-full">
-    <div className="max-w-full overflow-hidden">
+    <div className="w-full max-w-[calc(100vw-300px)] overflow-x-hidden pr-6">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
         <div>
           <h2 className="text-2xl font-black text-slate-800 tracking-tight">
@@ -109,18 +109,21 @@ export default function AdminArticleList() {
             {t.desc}
           </p>
         </div>
-        <Link
-          to="/admin/articles/new"
-          className="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 text-white text-sm font-bold rounded-lg shadow-sm hover:bg-blue-700 transition-colors"
-        >
-          {/* <i className="bi bi-plus-lg"></i> VIẾT BÀI MỚI */}
-          <i className="bi bi-plus-lg"></i> {t.btn_new}
-        </Link>
+        <div className="flex-shrink-0">
+          {" "}
+          {/* Bọc Link vào div này để bảo vệ kích thước nút */}
+          <Link
+            to="/admin/articles/new"
+            className="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 text-white text-sm font-bold rounded-lg shadow-sm hover:bg-blue-700 transition-colors whitespace-nowrap"
+          >
+            <i className="bi bi-plus-lg"></i> {t.btn_new}
+          </Link>
+        </div>
       </div>
 
       <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
         <div className="w-full overflow-hidden">
-          <table className="w-full text-left border-collapse whitespace-nowrap">
+          <table className="w-full text-left border-collapse table-fixed">
             <thead className="bg-slate-50 border-b border-slate-200">
               <tr>
                 <th className="px-4 py-3 w-12 text-center">ID</th>
@@ -177,7 +180,7 @@ export default function AdminArticleList() {
                       <td className="px-4 py-3 text-sm font-medium text-slate-500 text-center">
                         #{article.id}
                       </td>
-                      <td className="px-4 py-3">
+                      <td className="px-4 py-3 overflow-hidden">
                         <div
                           className="text-sm font-bold text-slate-800 truncate max-w-[150px] md:max-w-[300px] lg:max-w-md"
                           title={article.title}
