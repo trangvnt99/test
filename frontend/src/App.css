@@ -15,11 +15,15 @@
 
 .App-header {
   background-color: #ffffff;
-  min-height: 100vh;
+  /* min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: center; */
+  /* THÊM DÒNG NÀY ĐỂ NỘI DUNG LUÔN BẮT ĐẦU TỪ BÊN TRÁI */
+  display: block;
+  width: 100%;
+  color: #333; /* Đổi màu chữ vì background đang là trắng (#ffffff) */
   font-size: calc(10px + 2vmin);
   color: white;
 }

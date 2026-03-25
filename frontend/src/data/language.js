@@ -586,6 +586,43 @@ export const content = {
       section_7_content:
         "Mọi chi tiết vui lòng liên hệ: Văn phòng Trung tâm DITAGIS – Tòa C7 – Trường Đại học Bách Khoa TP.HCM – 268 Lý Thường Kiệt, Phường 14, Quận 10, Thành Phố Hồ Chí Minh.",
     },
+
+    //Site Admin
+    admin: {
+      system_name: "DITAGIS",
+      menu_title: "Menu hệ thống",
+      nav_articles: "Bài viết",
+      nav_users: "Người dùng",
+      nav_gis: "Dữ liệu GIS",
+      logout: "Đăng xuất",
+      header_title: "Hệ thống Quản trị",
+      role_label: "Administrator",
+      overview_title: "Tổng quan hệ thống",
+      active_articles: "Bạn có {count} bài viết đang hoạt động.",
+      stat_total: "Tổng bài viết",
+      stat_views: "Lượt xem",
+      stat_data: "Dữ liệu",
+      article_list: {
+        title: "Quản lý Bài viết",
+        desc: "Danh sách hiển thị thu gọn dành cho Admin.",
+        btn_new: "VIẾT BÀI MỚI",
+        table_id: "ID",
+        table_title: "Tiêu đề",
+        table_status: "Trạng thái",
+        table_date: "Ngày đăng",
+        table_action: "Hành động",
+        status_public: "Công khai",
+        status_draft: "Bản nháp",
+        status_hidden: "(Đã ẩn)",
+        loading: "Đang tải dữ liệu...",
+        no_data: "Chưa có bài viết nào.",
+        confirm_delete:
+          "Bạn có chắc chắn muốn xóa bài viết ID #{id} không? Hành động này không thể hoàn tác.",
+        alert_delete_fail: "Xóa thất bại: ",
+        alert_toggle_fail: "Không thể thay đổi trạng thái!",
+        alert_connect_error: "Không thể kết nối đến server.",
+      },
+    },
   },
   en: {
     menu: {
@@ -1173,6 +1210,43 @@ export const content = {
       section_7_title: "7. Registration Venue:",
       section_7_content:
         "For further details, please contact: DITAGIS Office – Building C7 – Ho Chi Minh City University of Technology – 268 Ly Thuong Kiet, Dien Hong Ward, Ho Chi Minh City.",
+    },
+
+    //Site Admin
+    admin: {
+      system_name: "DITAGIS",
+      menu_title: "System Menu",
+      nav_articles: "Articles",
+      nav_users: "Users",
+      nav_gis: "GIS Data",
+      logout: "Log out",
+      header_title: "Management System",
+      role_label: "Administrator",
+      overview_title: "System Overview",
+      active_articles: "You have {count} active articles.",
+      stat_total: "Total Articles",
+      stat_views: "Views",
+      stat_data: "Data",
+      article_list: {
+        title: "Article Management",
+        desc: "Collapsed list view for Administrators.",
+        btn_new: "NEW ARTICLE",
+        table_id: "ID",
+        table_title: "Title",
+        table_status: "Status",
+        table_date: "Date",
+        table_action: "Actions",
+        status_public: "Public",
+        status_draft: "Draft",
+        status_hidden: "(Hidden)",
+        loading: "Loading data...",
+        no_data: "No articles found.",
+        confirm_delete:
+          "Are you sure you want to delete article ID #{id}? This action cannot be undone.",
+        alert_delete_fail: "Delete failed: ",
+        alert_toggle_fail: "Could not change status!",
+        alert_connect_error: "Cannot connect to server.",
+      },
     },
   },
 };
