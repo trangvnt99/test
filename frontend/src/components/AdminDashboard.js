@@ -5,7 +5,7 @@ import AdminArticleList from "./AdminArticleList";
 
 export default function AdminDashboard() {
     const [articles, setArticles] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
+    const [setIsLoading] = useState(true);
     const navigate = useNavigate();
 
     const adminName = localStorage.getItem("username") || "Trang Võ";
